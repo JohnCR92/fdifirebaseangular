@@ -1,0 +1,40 @@
+.formato{
+    background-color: blue
+}
+
+input[type="file"] {
+    display: none;
+    
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    color:  rgb(126, 123, 123);
+    
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 2rem 1.5rem;
+  font: 1rem/1.5 "PT Sans", Arial, sans-serif;
+  color: #5a5a5a;
+}
+
+.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid rgba(32, 77, 32, 0.623);
+}
+ 
+.ng-invalid:not(form)  {
+    border-left: 5px solid rgb(148, 27, 27);
+}
+

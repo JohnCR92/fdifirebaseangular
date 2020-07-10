@@ -1,0 +1,102 @@
+<div id="content">
+
+
+    <sa-widgets-grid>
+
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+
+                </div>
+                <fieldset>
+                    <div sa-widget [editbutton]="false" color="blueDark">
+                        <header>
+                            <span class="widget-icon">
+                                <i class="fa fa-table"></i>
+                            </span>
+                            <h2>Lista de las Categorias con su respectiva Disicplina Deportiva</h2>
+                        </header>
+                        <div *ngIf="this.temp_var">
+                            <div class="widget-body no-padding ">
+                                <div class="table-responsive">
+
+
+
+                                    <sa-datatable paginationLength="true"
+                                        tableClass=" table  table-striped table-bordered table-hover" width="100%">
+
+                                        <thead class="f">
+                                            <tr align="center">
+                                                <!-- <td>ID DE LA CATEGORIA CON SU RESPECTIVA DISCIPLINA</td>-->
+                                                <td>NOMBRE DE LA CATEGORIA</td>
+                                                <td>NOMBRE DE LA DISCIPLINA DEPORTIVA</td>
+                                                <td>EDITAR</td>
+                                                <td>ELIMINAR</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let fdiCategoriaDisciplina of fdiCategoriaDisciplinas"
+                                                align="center">
+
+                                                <!-- <td>
+                                                            {{categoriadisciplina.catdisciId}}
+                                                        </td>-->
+
+                                                <td id="list">
+                                                    {{fdiCategoriaDisciplina.fdiCategoria.categoriaNombre}}
+                                                </td>
+
+                                                <td>
+                                                    {{fdiCategoriaDisciplina.fdiDisciplina.disciplinaNombre}}
+                                                </td>
+                                                <td>
+                                                    <!--<button (click)="editar(autor)">Editar</button>-->
+                                                    <a class="btn btn-primary btn xs"
+                                                        routerLink="formeditcd/{{fdiCategoriaDisciplina.catdisciId}}">
+                                                        <i class="fa fa-edit"></i>
+
+                                                    </a>
+                                                </td>
+                                                <td>
+
+                                                    <a class="btn btn-danger btn xs"
+                                                        (click)="eliminar(fdiCategoriaDisciplina)">
+                                                        <i class="fa fa-trash-o"></i>
+
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+
+                                    </sa-datatable>
+                                    <br>
+                                    <div class="modal-footer">
+
+                                                <button class="btn btn-labeled btn-primary" routerLink="form" placement="top"
+                                                toolyip="Crear la Categoria con su respectiva Disciplina Deportiva">
+                                                <span class="btn-label">
+                                                        <i class="fa fa-plus-circle"></i>
+                                                </span>
+                                                Nuevo</button>
+
+                                                <button class="btn btn-labeled btn-info btn-sm" routerLink="reportes"
+                                                placement="top" toolyip="Reportes">
+                                                <span class="btn-label">
+                                                        <i class="fa fa-list-alt" aria-hidden="true"></i>
+                                                </span>
+                                                Reporte General </button>
+
+                                            </div>
+                                        
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </article>
+        </div>
+    </sa-widgets-grid>
+</div>

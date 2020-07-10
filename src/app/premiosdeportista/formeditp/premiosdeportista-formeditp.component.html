@@ -1,0 +1,196 @@
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+
+                        <h2>Edición de Premios de los Deportistas</h2>
+                    </header>
+                    <div class="row" class="cold-md 1" align="right">
+                        <div align="right" class="widget-body no-padding col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                            <div>
+                                <br>
+
+                                <button (click)="atras(edPremiosDeportista)" class="btn btn-labeled btn-warning"
+                                    placement="top" toolyip="Regresar">
+                                    <span class="btn-label">
+                                        <i class="fa fa-reply"></i>
+                                    </span>
+                                    Volver</button>
+
+                                
+                                    <div [hidden]="submitted">
+                                <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                    <b> DATOS A EDITAR DE LOS PREMIOS DEL DEPORTISTA</b>
+                                </legend>
+                                <form (ngSubmit)="onSubmit()" #editmedallasForm="ngForm">
+                                <div align="left">
+                                    <br>
+                                    <div>
+
+                                        <label for="prsCedula"
+                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                            <FONT SIZE=3>* Nombre y Lugar de la Competencia: </FONT>
+                                        </label>
+                                        <br>
+                                        <select required=true id="nombreCompetencia" class="form-control" [(ngModel)]="edPremiosDeportista.competencia.idCompetencia" [compareWith]="compare" name="nombreCompetencia" #nombreCompetencia="ngModel">
+                                            <option disabled value="0" selected="selected">Seleccione....</option>
+                                            <option *ngFor="let competencia of competencias" [value]="competencia.idCompetencia">{{competencia.nombreCompetencia}} / {{competencia.lugar}}</option>
+                                        </select>
+                                        <div [hidden]="nombreCompetencia.valid || nombreCompetencia.pristine"
+                                            class="alert alert-danger">
+                                           El Nombre y Lugar de la Competencia son Necesarios
+                                       </div>
+                                       <br>
+                                       <label for="disciplinaNombre"
+                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                            <FONT SIZE=3>* Cédula y Nombre del Deportista: </FONT>
+                                        </label>
+                                        <br>
+                                        <select required=true id="prsCedula" class="form-control" [(ngModel)]="edPremiosDeportista.edDeportista.deporId" [compareWith]="compare" name="prsCedula" #prsCedula="ngModel" disabled>
+                                            <option disabled value="0" selected="selected">Seleccione....</option>
+                                            <option *ngFor="let edDeportista of edDeportistas" [value]="edDeportista.deporId">{{edDeportista.fdiPersona.prsCedula}} / {{edDeportista.fdiPersona.prsApellido}} {{edDeportista.fdiPersona.prsNombre}} / {{edDeportista.fdiCategoriaDisciplina.fdiDisciplina.disciplinaNombre}} {{edDeportista.fdiCategoriaDisciplina.fdiCategoria.categoriaNombre}}</option>
+                                        </select>
+                                        <div [hidden]="prsCedula.valid || prsCedula.pristine"
+                                            class="alert alert-danger">
+                                           La Cédula, nombres y Apellidos del Deportista son Necesarios
+                                       </div>
+                                       <br>
+                                    <br>
+                                    <label for="adjunto"
+                                            style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                            <FONT SIZE=3>* Foto del Deportista</FONT>
+                                        </label>
+                                        <br>
+                                        <div align="center">
+                                            <label class="custom-file-upload">
+                                                <img id="deportFoto"
+                                                    [src]="getUrlDoc1(edPremiosDeportista.edDeportista.deportFoto)"
+                                                    alt="Smiley face" height="150" width="150">
+                                                <br>
+
+                                                <br>
+
+                                                <a [href]="getUrlDoc1(edPremiosDeportista.edDeportista.deportFoto)"
+                                                    target="_blank" class="btn btn-primary btn-sm">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            </label>
+
+
+                                        </div>
+                                        <br>
+                                    <label
+                                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Número de Medallas de Oro</FONT>
+                                    </label>
+                                    <br>
+                                    <input class="form-control" type="number" id="moro"
+                                             required=true 
+                                            [(ngModel)]="edPremiosDeportista.moro" name="moro" #moro="ngModel">
+                                            <div [hidden]="moro.valid || moro.pristine"
+                                            class="alert alert-danger">
+                                          El Numero de Medallas de Oro es Necesario
+                                    
+                                </div>
+
+                                    <br>
+
+                                    <label
+                                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Número de Medallas de Plata</FONT>
+                                    </label>
+                                    <br>
+                                    <input class="form-control" type="number" id="mplata"
+                                             required=true 
+                                            [(ngModel)]="edPremiosDeportista.mplata" name="mplata" #mplata="ngModel">
+                                            <div [hidden]="mplata.valid || mplata.pristine"
+                                            class="alert alert-danger">
+                                          El Numero de Medallas de Plata es Necesario
+                                    
+                                </div>
+
+                                    <br>
+
+                                    <label
+                                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Número de Medallas de Bronce</FONT>
+                                    </label>
+                                    <br>
+                                    <input class="form-control" type="number" id="mbronce"
+                                             required=true 
+                                            [(ngModel)]="edPremiosDeportista.mbronce" name="mbronce" #mbronce="ngModel">
+                                            <div [hidden]="mbronce.valid || mbronce.pristine"
+                                            class="alert alert-danger">
+                                          El Numero de Medallas de Bronce es Necesario
+                                    
+                                </div>
+
+                                    <br>
+                                    <label
+                                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Posición Obtenida</FONT>
+                                    </label>
+                                    <br>
+                                    <input class="form-control" type="text" id="posicion"
+                                             required=true 
+                                            [(ngModel)]="edPremiosDeportista.posicion" name="posicion" #posicion="ngModel">
+                                            <div [hidden]="posicion.valid || posicion.pristine"
+                                            class="alert alert-danger">
+                                          La Posición Obtenida por el Deportista es Necesaria.
+                                    
+                                </div>
+
+                                <br>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-labeled btn-primary"
+                                        [disabled]="!editmedallasForm.form.valid" (click)="guardar()">
+                                        <span class="btn-label">
+                                            <i class="fa fa-floppy-o"></i>
+                                        </span>
+                                        Guardar</button>
+                                    <button (click)="cancelar()" class="btn btn-labeled btn-danger"
+                                        type="reset"><span class="btn-label"><i
+                                                class="glyphicon glyphicon-remove"></i>
+                                        </span>Cancelar</button>
+                                    <button (click)="atras(edPremiosDeportista)"
+                                        class="btn btn-labeled btn-warning" placement="top"
+                                        toolyip="Regresar">
+                                        <span class="btn-label">
+                                            <i class="fa fa-reply"></i>
+                                        </span>
+                                        Volver</button>
+
+
+                                </div>
+
+                                <br>
+
+                            </div>
+                        </div>
+                            </form>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            </article>
+
+        </div>
+
+
+
+
+    </sa-widgets-grid>
+</div>

@@ -1,0 +1,141 @@
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+
+                        <h2>Listas de Campos de Entrenamiento</h2>
+                    </header>
+
+                    <div class="row" class="cold-md 1" align="right">
+                        <div align="right" class="widget-body no-padding col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+
+                            <div>
+                                <br>
+                                <div>
+
+                                    <img align="right" src="assets/img/FDI.png" alt="SmartAdmin" height="65" width="65">
+                                    <img align="left" src="assets/img/fdiiii.png" alt="SmartAdmin" height="65"
+                                        width="65">
+
+                                </div>
+
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+
+
+                                <div>
+
+                                    <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                        <b> FEDERACIÓN DEPORTIVA DE IMBABURA</b>
+                                    </legend>
+                                </div>
+                                <div>
+
+                                    <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                        <b> LISTA DE CAMPOS DE ENTRENAMIENTO</b>
+                                    </legend>
+                                </div>
+
+                                <div align="left">
+
+                                    <div class="row" id="datosImpresion">
+
+                                        <div id="print-section">
+
+                                            <div id="content">
+                                                <div *ngIf="this.temp_var">
+                                                    <br>
+                                                    <sa-datatable [options]="{
+                                                        colReorder: true,
+                                                        buttons: [
+                                                        'excel', 'pdf'
+                                                        ]
+                                                        }" paginationLength="true" paginationLength="true" tableClass=" table  table-striped table-bordered table-hover"  
+                                                        align="center">
+                                                        <br>
+                                                        
+                                                                <title id="titulo" align="center">
+                                                                    Listas de Campos de Entrenamiento</title>
+                                                                
+                                                            
+                                                        <thead class="thead-dark" >
+                                                                
+                                                            <title id="titulo" align="center"></title>
+                                                            <tr>
+
+                                                                <td>NOMBRE CAMPO DE ENTRENAMIENTO</td>
+
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let centrenamiento of centrenamientos">
+                                                                <td>
+                                                                    {{centrenamiento.campentreNombre}}
+                                                                </td>
+                                                                
+
+
+
+
+                                                            </tr>
+                                                        </tbody>
+
+                                                    </sa-datatable>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <script type="text/javascript">
+                                        $("#hoolaa").click(function () {
+                                            $("div#datosImpresion").printArea();
+                                        })
+                                    </script>
+
+                                    <div class="modal-footer">
+                                        <!--<button class="btn btn-primary btn xs" (click)="print()"><i class="fa fa-print"
+                                                aria-hidden="true"></i> Imprimir</button>-->
+                                        <!--<button (click)="exportAsXLSX()" class="btn btn-outline-success"><i
+                                                class="fa fa-file-excel-o"
+                                                style="font-size:17px;color:green"></i></button>-->
+                                        <button (click)="atras(centrenamiento)" class="btn btn-labeled btn-danger"><span
+                                                class="btn-label"><i class="glyphicon glyphicon-remove"></i>
+                                            </span>Cancelar</button>
+
+                                    </div>
+
+                                </div>
+
+
+                                <br>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </article>
+
+        </div>
+
+
+
+
+    </sa-widgets-grid>
+</div>

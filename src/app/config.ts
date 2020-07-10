@@ -1,0 +1,53 @@
+import {} from './../environments/environment'
+import { environment } from 'environments/environment';
+export const config={
+    api:{
+        url:environment.api.url,
+        centrenamiento:{
+            resource:"/centrenamiento"
+        },
+        disciplina:{
+            resource:"/disciplina"
+        },
+        categoria:{
+            resource:"/categoria"
+        },
+        categoriadisciplina:{
+            resource:"/categoriadisciplina"
+        },
+        persona:{
+            resource:"/persona"
+        },
+        deportista:{
+            resource:"/deportista",
+            FindA:"/deportista/findA",
+            FindDB:"/deportista/findDB",
+            FindFNF:"/deportista/findFNF"
+        },
+        entrenador:{
+            resource:"/entrenador"
+        },
+        entrenador1:{
+            resource:"/entrenador1"
+        },
+        premiosdeportista:{
+            resource:"/premiosdeportista"
+        },
+        deportentre:{
+            resource:"/deportentre"
+        },
+        entrenadordisci:{
+            resource:"/entrenadordisci"
+        },
+        competencia:{
+            resource:"/competencia"
+        }
+    },
+    sri:{
+        url:environment.sri.url,
+        sripersona:{
+            resource:"/sripersona"
+        },
+    }
+}
+

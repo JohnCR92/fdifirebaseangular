@@ -1,0 +1,404 @@
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+
+                        <h2>Edición de Datos de la Persona</h2>
+                    </header>
+                    <div class="row" class="cold-md 1" align="right">
+                        <div align="right" class="widget-body no-padding col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                            <div>
+                                <br>
+                                <button (click)="atras(persona)" class="btn btn-labeled btn-warning" placement="top"
+                                    toolyip="Regresar">
+                                    <span class="btn-label">
+                                        <i class="fa fa-reply"></i>
+                                    </span>
+                                    Volver</button>
+                                <div [hidden]="submitted">
+                                    <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                        <b> DATOS DE LA PERSONA </b>
+                                    </legend>
+                                    <form (ngSubmit)="onSubmit()" #personaForm="ngForm">
+                                        <div align="left">
+                                            <br>
+                                            <div>
+                                                <label for="cedula"
+                                                    style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>* Cedula, Pasaporte o Código de la Persona</FONT>
+                                                </label>
+
+                                                <input type="text" required
+                                                    (change)="validadorDeCedula(persona.prsCedula)" maxlength="10"
+                                                    class="form-control" name="prsCedula" id="prsCedula"
+                                                    placeholder="Cedula/Pasaporte/Código de la Persona"
+                                                    [(ngModel)]="persona.prsCedula" #prsCedula="ngModel">
+                                                <div [hidden]="prsCedula.valid || prsCedula.pristine"
+                                                    class="alert alert-danger">
+                                                    Es Necesario el Número de Cédula
+                                                </div>
+
+                                                <div>
+                                                    <label for="cedula" *ngIf="!verificador"
+                                                        style="color: brown ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                        <FONT SIZE=3>Atención Cédula Incorrecta</FONT>
+                                                    </label>
+
+                                                </div>
+
+
+                                            </div>
+                                            <br>
+                                            <label for="nombre"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Nombres</FONT>
+                                            </label>
+                                            <input type="text" required
+                                            pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                class="form-control" name="prsNombre" id="prsNombre"
+                                                placeholder="Nombres" [(ngModel)]="persona.prsNombre"
+                                                #prsNombre="ngModel" disabled>
+                                            <div [hidden]="prsNombre.valid || prsNombre.pristine"
+                                                class="alert alert-danger">
+                                                Los Nombres de la Persona son Necesarios
+                                            </div>
+                                            <br>
+                                            <label for="apellido"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Apellidos</FONT>
+                                            </label>
+                                            <input type="text" class="form-control" name="prsApellido" id="prsApellido"
+                                                placeholder="apellidos" [(ngModel)]="persona.prsApellido" required
+                                                pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                #prsApellido="ngModel" disabled>
+                                            <div [hidden]="prsApellido.valid || prsApellido.pristine"
+                                                class="alert alert-danger">
+                                                Los Apellidos de la Persona son Necesarios
+                                            </div>
+                                            <br>
+                                            <label for="fechanac"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Fecha de Nacimiento</FONT>
+                                            </label>
+                                            <input type="date" class="form-control" name="prsFechaNaciemineto"
+                                                id="prsFechaNaciemineto" placeholder="Fecha de Nacimiento"
+                                                [(ngModel)]="persona.prsFechaNaciemineto" required
+                                                #prsFechaNaciemineto="ngModel">
+                                            <div [hidden]="prsFechaNaciemineto.valid || prsFechaNaciemineto.pristine"
+                                                class="alert alert-danger">
+                                                La Fecha de Nacimiento de la Persona es Necesaria
+                                            </div>
+                                            <br>
+                                            <div>
+                                                <label for="sexo"
+                                                    style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>*Sexo</FONT>
+                                                </label>
+                                                <br>
+                                                <label style="align-items: center"
+                                                    class="radio radio-inline no-margin  ">
+                                                    <input type="radio" name="sexo" value="M" class="radiobox style-2"
+                                                        [(ngModel)]="persona.prsSexo"> />
+                                                    <span>Masculino</span>
+
+                                                </label>
+
+                                                <label style="align-items: center"
+                                                    class="radio radio-inline no-padding  ">
+                                                    <input type="radio" name="sexo" value="F" class="radiobox style-3 "
+                                                        [(ngModel)]="persona.prsSexo"> />
+                                                    <span>Femenino</span>
+
+                                                </label>
+                                            </div>
+
+                                            <br>
+                                            <label for="etnia"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Etnia</FONT>
+                                            </label>
+                                            <br>
+                                            <select class="form-control" name="prsEtnia" [(ngModel)]="persona.prsEtnia"
+                                                id="prsEtnia" required=true #prsEtnia="ngModel">
+                                                <option [value]=null>Seleccione...</option>
+                                                <option value="Mestizo">Mestizo</option>
+                                                <option value="Indigena">Indigena</option>
+                                                <option value="Blanco">Blanco</option>
+                                                <option value="Afroamericano">Afroamericano</option>
+                                                <option value="Otro">Otro</option>
+
+                                            </select>
+                                            <div [hidden]="prsEtnia.valid || prsEtnia.pristine"
+                                                class="alert alert-danger">
+                                                La Etnia de la Persona es Necesaria
+                                            </div>
+                                            <br>
+
+                                            <label for="ocup"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Ocupación</FONT>
+                                            </label>
+                                            <input type="text" class="form-control" name="prsOcupacion"
+                                                id="prsOcupacion" placeholder="Ocupacion"
+                                                [(ngModel)]="persona.prsOcupacion" required
+                                                pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                #prsOcupacion="ngModel">
+                                            <div [hidden]="prsOcupacion.valid || prsOcupacion.pristine"
+                                                class="alert alert-danger">
+                                                La Ocupación de la Persona es Necesaria
+                                            </div>
+                                            <br>
+                                            <label for="estadocivil"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Estado Civil</FONT>
+                                            </label>
+                                            <br>
+                                            <select class="form-control" name="prsEstadoCivil" id="prsEstadoCivil"
+                                                [(ngModel)]="persona.prsEstadoCivil" required=true
+                                                #prsEstadoCivil="ngModel">
+                                                <option [value]=null>Seleccione..</option>
+                                                <option value="S">Soltero</option>
+                                                <option value="C">Casado</option>
+                                                <option value="D">Divorciado</option>
+                                                <option value="V">Viudo</option>
+                                                <option value="U">Union libre</option>
+
+                                            </select>
+                                            <div [hidden]="prsEstadoCivil.valid || prsEstadoCivil.pristine"
+                                                class="alert alert-danger">
+                                                El Estado Civil de la Persona es Necesario
+                                            </div>
+                                            <br>
+                                            <label for="ts"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Tipo de Sangre</FONT>
+                                            </label>
+                                            <br>
+                                            <select class="form-control" name="prsGrupoSanguineo" id="prsGrupoSanguineo"
+                                                [(ngModel)]="persona.prsGrupoSanguineo" required=true
+                                                #prsGrupoSanguineo="ngModel">
+                                                <option [value]=null>Seleccione....</option>
+                                                <option value="O Rh+">O Rh+</option>
+                                                <option value="O Rh-">O Rh-</option>
+                                                <option value="B Rh-">B Rh-</option>
+                                                <option value="B Rh+">B Rh+</option>
+                                                <option value="A Rh-">A Rh-</option>
+                                                <option value="A Rh+">A Rh+</option>
+                                                <option value="AB Rh-">AB Rh-</option>
+                                                <option value="AB Rh+">AB Rh+</option>
+
+                                            </select>
+                                            <div [hidden]="prsGrupoSanguineo.valid || prsGrupoSanguineo.pristine"
+                                                class="alert alert-danger">
+                                                El Tipo de Sangre de la Persona es Necesario
+                                            </div>
+                                            <br>
+                                            <label for="tipodis"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*¿Posee algun tipo de Discapacidad?</FONT>
+                                            </label>
+                                            <select class="form-control" name="prsTipoDiscapacidad"
+                                                [(ngModel)]="persona.prsTipoDiscapacidad" id="prsTipoDiscapacidad"
+                                                required=true #prsTipoDiscapacidad="ngModel">
+                                                <option [value]=null>Seleccione....</option>
+                                                <option value="Visual">Visual</option>
+                                                <option value="Física">Física</option>
+                                                <option value="Auditiva">Auditiva</option>
+                                                <option value="Intelectual">Intelectual</option>
+                                                <option value="No">Ninguna</option>
+
+                                            </select>
+                                            <div [hidden]="prsTipoDiscapacidad.valid || prsTipoDiscapacidad.pristine"
+                                                class="alert alert-danger">
+                                                El Tipo de Sangre de la Persona es Necesario
+                                            </div>
+                                            <br>
+                                            <label for="telefono"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Teléfono/Celular</FONT>
+                                            </label>
+                                            <input type="tel" class="form-control" name="prsTelefono" id="prsTelefono"
+                                                placeholder="Teléfono/Celular" [(ngModel)]="persona.prsTelefono"
+                                                required pattern="([09]{2}[0-9]{8})" maxlength="10"
+                                                #prsTelefono="ngModel">
+                                            <div [hidden]="prsTelefono.valid || prsTelefono.pristine"
+                                                class="alert alert-danger">
+                                                El Teléfono de la Persona es Necesario
+                                            </div>
+
+                                            <br>
+                                            <label for="correo"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Correo Electrónico</FONT>
+                                            </label>
+                                            <input type="email" class="form-control" name="prsCorreo" id="prsCorreo"
+                                                placeholder="Email" [(ngModel)]="persona.prsCorreo" required
+                                                pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                                                #prsCorreo="ngModel">
+                                            <div [hidden]="prsCorreo.valid || prsCorreo.pristine"
+                                                class="alert alert-danger">
+                                                El Email de la Persona es Necesario
+                                            </div>
+                                            <br>
+                                            <legend align="center"
+                                                style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                                <b>LUGAR DE NACIMIENTO</b>
+                                            </legend>
+                                            <br>
+                                            <label for="naci"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Nacionalidad</FONT>
+                                            </label>
+                                            <input type="text" class="form-control" name="prsNacionalidad"
+                                                id="prsNacionalidad" disabled placeholder="Nacionalidad"
+                                                [(ngModel)]="persona.prsNacionalidad" #prsNacionalidad="ngModel"
+                                                required pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                                            <div [hidden]="prsNacionalidad.valid || prsNacionalidad.pristine"
+                                                class="alert alert-danger">
+                                                La Nacionalidad de la Persona es Necesaria
+                                            </div>
+                                            <br>
+                                            <label for="provin"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Provincia/Canton/Parroquia</FONT> </label> <input
+                                                        type="text" class="form-control" name="prsProvincia"
+                                                        id="prsProvincia" placeholder="Provincia/Canton/parroquia"
+                                                        [(ngModel)]="persona.prsProvincia+'/' + persona.prsCanton+'/' + persona.prsParroquia"
+                                                        #prsProvincia="ngModel" required
+                                                        pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                        disabled>
+                                                        <div [hidden]="prsProvincia.valid || prsProvincia.pristine"
+                                                            class="alert alert-danger">
+                                                            La Provincia, Cantón y Parroquía de la Persona son
+                                                            Necesarias
+                                                        </div>
+                                                        <br>
+                                                        <legend align="center"
+                                                            style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                                            <b> RECIDENCIA ACTUAL</b>
+                                                        </legend>
+                                                        <br>
+                                                        <label for="recid"
+                                                            style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=3>*Dirección de Rescidencia</FONT>
+                                                        </label>
+                                                        <input type="text" class="form-control" name="prsDirRecidencia"
+                                                            id="prsDirRecidencia"
+                                                            placeholder="Direccion de Recidencia de la Persona"
+                                                            [(ngModel)]="persona.prsDirRecidencia"
+                                                            #prsDirRecidencia="ngModel" required
+                                                            pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                                                        <div [hidden]="prsDirRecidencia.valid || prsDirRecidencia.pristine"
+                                                            class="alert alert-danger">
+                                                            La Dirección de Rescidencia de la Persona son Necesarias
+                                                        </div>
+                                                        <br>
+                                                        <legend align="center"
+                                                            style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                                            <b>DATOS DE LOS PADRES</b>
+                                                        </legend>
+
+                                                        <br>
+                                                        <label for="np"
+                                                            style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=3>*Nombres del Padre</FONT>
+                                                        </label>
+                                                        <input type="text" class="form-control" name="prsNompadre"
+                                                            id="prsNompadre" placeholder="Nombres del Padre"
+                                                            [(ngModel)]="persona.prsNompadre" #prsNompadre="ngModel"
+                                                            required
+                                                            pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                            onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                                                        <div [hidden]="prsNompadre.valid || prsNompadre.pristine"
+                                                            class="alert alert-danger">
+                                                            El Nombre del Padre de la Persona es Necesario
+                                                        </div>
+                                                        <br>
+                                                        <label for="nm"
+                                                            style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=3>*Nombres de la Madre</FONT>
+                                                        </label>
+                                                        <input type="text" class="form-control" name="prsNommadre"
+                                                            id="prsNommadre" placeholder="Nombres de la Madre"
+                                                            [(ngModel)]="persona.prsNommadre" #prsNommadre="ngModel"
+                                                            required
+                                                            pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                            onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                                                        <div [hidden]="prsNommadre.valid || prsNommadre.pristine"
+                                                            class="alert alert-danger">
+                                                            El Nombre de la Madre de la Persona es Necesario
+                                                        </div>
+                                                        <br>
+                                                        <label for="tp"
+                                                            style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=3>*Telefono del Representante</FONT>
+                                                        </label>
+                                                        <input type="tel" class="form-control" name="prsTelpadres"
+                                                            id="prsTelpadres" placeholder="Telefono del Representante"
+                                                            [(ngModel)]="persona.prsTelpadres" #prsTelpadres="ngModel"
+                                                            required pattern="([09]{2}[0-9]{8})" maxlength="10">
+                                                        <div [hidden]="prsTelpadres.valid || prsTelpadres.pristine"
+                                                            class="alert alert-danger">
+                                                            El Teléfono del Representante de la Persona es Necesario
+                                                        </div>
+
+                                                        <br>
+                                                        <div class="modal-footer">
+                                                        <button
+                                                            onclick="return confirm('Esta seguro realizar los cambios?')"
+                                                            type="submit" class="btn btn-labeled btn-primary"
+                                                            [disabled]="!personaForm.form.valid" (click)="guardar()">
+                                                            <span class="btn-label">
+                                                                <i class="fa fa-floppy-o"></i>
+                                                            </span>
+                                                            Guardar</button>
+                                                        <button (click)="cancelar()" class="btn btn-labeled btn-danger"
+                                                            type="reset">
+                                                            <span class="btn-label">
+                                                                <i class="glyphicon glyphicon-remove"></i>
+                                                            </span>Cancelar</button>
+                                                        <button (click)="atras(persona)"
+                                                            class="btn btn-labeled btn-warning" placement="top"
+                                                            toolyip="Regresar">
+                                                            <span class="btn-label">
+                                                                <i class="fa fa-reply"></i>
+                                                            </span>
+                                                            Volver</button>
+                                                        </div>
+
+                                        </div>
+                                    </form>
+
+                                    <br>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </article>
+
+        </div>
+
+
+
+
+    </sa-widgets-grid>
+</div>

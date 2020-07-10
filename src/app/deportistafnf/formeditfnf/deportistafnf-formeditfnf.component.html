@@ -1,0 +1,625 @@
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+
+                        <h2>Registro del Deportista</h2>
+                    </header>
+                    <div class="row" class="cold-md 1" align="right">
+                        <div align="right" class="widget-body no-padding col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                            <div>
+                                <br>
+                                <button (click)="atras(deportista)" class="btn btn-labeled btn-warning"
+                                                placement="top" toolyip="Regresar">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-reply"></i>
+                                                </span>
+                                                Volver</button>
+
+
+                                <div [hidden]="submitted">
+                                    <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                        <b> DATOS DEL DEPORTISTA</b>
+                                    </legend>
+                                    <form (ngSubmit)="onSubmit()" #deportistaForm="ngForm">
+                                        <div align="left">
+                                            <br>
+                                            <div>
+
+                                                <label for="prsCedula"
+                                                    style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>* Cedula: </FONT>
+                                                </label>
+                                                <br>
+
+                                                <input class="form-control" type="text" id="prsCedula" max="10"
+                                                    required=true [(ngModel)]="edDeportista.fdiPersona.prsCedula"
+                                                    name="prsCedula" #prsCedula="ngModel" disabled>
+                                                <div [hidden]="prsCedula.valid || prsCedula.pristine"
+                                                    class="alert alert-danger">
+                                                    La Cedula es requerida
+                                                </div>
+
+                                                <!--<p class="note"><strong >Note: Recuerde {{categoriadisciplina.fdiDisciplina.disciplinaNombre}}</strong></p>-->
+                                                <br>
+                                                <label for="prsNombre"
+                                                    style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>* Nombres del Deportista: </FONT>
+                                                </label>
+                                                <br>
+                                                <input class="form-control" type="text" id="prsNombre" required
+                                                    pattern="([A-ZñÑáéíóúÁÉÍÓÚüÜ][a-zñÑáéíóúÁÉÍÓÚüÜ]{2,})|([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,} [a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,})"
+                                                    [(ngModel)]="edDeportista.fdiPersona.prsNombre" name="prsNombre"
+                                                    #prsNombre="ngModel" disabled>
+                                                <div [hidden]="prsNombre.valid || prsNombre.pristine"
+                                                    class="alert alert-danger">
+                                                    Los Nombres del Deportista son requeridos
+                                                </div>
+
+                                                <!--<p class="note"><strong >Note: Recuerde {{categoriadisciplina.fdiDisciplina.disciplinaNombre}}</strong></p>-->
+                                                <br>
+
+                                                <label for="prsApellido"
+                                                    style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>* Apellidos del Deportista: </FONT>
+                                                </label>
+                                                <br>
+                                                <input class="form-control" type="text" id="prsApellido" required
+                                                    pattern="([A-ZñÑáéíóúÁÉÍÓÚüÜ][a-zñÑáéíóúÁÉÍÓÚüÜ]{2,})|([a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,} [a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,})"
+                                                    [(ngModel)]="edDeportista.fdiPersona.prsApellido" name="prsApellido"
+                                                    #prsApellido="ngModel" disabled>
+                                                <div [hidden]="prsApellido.valid || prsApellido.pristine"
+                                                    class="alert alert-danger">
+                                                    Los Apellidos del Deportista son requeridos
+                                                </div>
+                                                <br>
+
+                                                <!--<p class="note"><strong >Note: Recuerde {{categoriadisciplina.fdiDisciplina.disciplinaNombre}}</strong></p>-->
+
+                                                <label for="disciplinaNombre"
+                                                    style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>* Disciplina y Categoría: </FONT>
+                                                </label>
+                                                <br>
+                                                <select id="fdiCategoriaDisciplina" required=true class="form-control"
+                                                    [(ngModel)]="edDeportista.fdiCategoriaDisciplina.catdisciId"
+                                                    name="fdiCategoriaDisciplina" #fdiCategoriaDisciplina="ngModel"
+                                                    [compareWith]="compare">
+                                                    <option disabled value="0" selected="selected">Seleccione....</option>
+                                                    <option
+                                                        *ngFor="let fdiCategoriaDisciplina of fdiCategoriaDisciplinas;"
+                                                        [value]="fdiCategoriaDisciplina.catdisciId">
+                                                        {{fdiCategoriaDisciplina.fdiDisciplina.disciplinaNombre}} /
+                                                        {{fdiCategoriaDisciplina.fdiCategoria.categoriaNombre}}</option>
+                                                </select>
+                                                <div [hidden]="fdiCategoriaDisciplina.valid || fdiCategoriaDisciplina.pristine"
+                                                    class="alert alert-danger">
+                                                    Seleccione la Disciplina con su respectiva Categoría
+                                                </div>
+
+
+
+
+                                            </div>
+                                            <br>
+                                            <label for="adjunto"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Foto y Cédula del Deportista</FONT>
+                                            </label>
+                                            <br>
+                                            <div align="center">
+                                                <label class="custom-file-upload">
+                                                    <img id="deportFoto" [src]="getUrlDoc1(edDeportista.deportFoto)"
+                                                        alt="Smiley face" height="150" width="150">
+                                                    <br>
+
+                                                    <br>
+
+                                                    <button class="btn btn-labeled btn-info btn-sm" type="button"
+                                                        href="#fotModal" role="button" data-toggle="modal">
+                                                        <span class="btn-label">
+                                                            <i class="glyphicon glyphicon-camera"></i></span>
+                                                        Añadir</button>
+
+                                                    <a [href]="getUrlDoc1(edDeportista.deportFoto)" target="_blank"
+                                                        class="btn btn-primary btn-sm">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+
+                                                </label>
+
+                                                <label class="custom-file-upload">
+                                                    <img [src]="getUrlDoc2(edDeportista.deportFotocedula)"
+                                                        alt="Smiley face" height="150" width="150">
+                                                    <br>
+
+                                                    <br>
+
+                                                    <button class="btn btn-labeled btn-info btn-sm" type="button"
+                                                        href="#cedModal" role="button" data-toggle="modal">
+                                                        <span class="btn-label">
+                                                            <i class="glyphicon glyphicon-camera"></i></span>
+                                                        Añadir</button>
+
+                                                    <a [href]="getUrlDoc2(edDeportista.deportFotocedula)"
+                                                        target="_blank" class="btn btn-primary btn-sm">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+
+                                                </label>
+                                            </div>
+
+                                            <!--<div align="center">
+
+                                            <a class="btn btn-info btn-sm" href="#fotosModal" role="button"
+                                            data-toggle="modal">
+                                            <i class="glyphicon glyphicon-camera"></i>
+
+                                        </a>
+
+                                        <label class="custom-file-upload">
+                                            <fieldset class="smart-form">
+                                                <div class="form-group">
+                                                    <section class="padding-form">
+                                                        <label class="col-lg-12 control-label text-left"
+                                                            style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=3>* Ruta</FONT>
+                                                        </label>
+                                                        <div class="input input-file col-lg-12">
+                                                            <span class="button">
+                                                                <input id="file"
+                                                                    onchange="$(this).parent().next('input.txtFile').val($(this).val())"
+                                                                    (change)="setArchivo($event)" type="file">
+                                                                <i class="glyphicon glyphicon-camera"></i>
+                                                                Cambiar
+                                                                <button ng-model="location"
+                                                                
+                                                                (click)="guardarfoto()"
+                                                                class="btn btn-primary btn xs">
+                                                                <i class="fa fa-floppy-o"></i>
+                                                                Guardar</button>
+                                                            </span>
+                                                            <input type="text" readonly class="txtFile" />
+                                                        </div>
+
+                                                    </section>
+
+
+
+                                                </div>
+
+                                            </fieldset>
+
+                                        </label>
+
+
+
+
+                                        <label class="custom-file-upload">
+                                            <fieldset class="smart-form">
+                                                <div class="form-group">
+                                                    <section class="padding-form">
+                                                        <label class="col-lg-12 control-label text-left"
+                                                            style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=3>* Ruta</FONT>
+                                                        </label>
+                                                        <div class="input input-file col-lg-12">
+                                                            <span class="button">
+                                                                <input id="file2"
+                                                                    onchange="$(this).parent().next('input.txtFile').val($(this).val())"
+                                                                    (change)="setArchivo2($event)" type="file">
+                                                                <i class="glyphicon glyphicon-camera"></i>
+                                                                Cambiar
+                                                                <button ng-model="location"
+                                                                
+                                                                (click)="guardarcedula()"
+                                                                class="btn btn-primary btn xs">
+                                                                <i class="fa fa-floppy-o"></i>
+                                                                Guardar</button>
+                                                            </span>
+                                                            
+                                                            <input type="text" readonly class="txtFile" />
+                                                        </div>
+
+                                                    </section>
+
+
+
+                                                </div>
+
+                                            </fieldset>
+
+                                        </label>
+
+
+                                    </div>-->
+                                            <br>
+                                            <label for="deportTipodeportista"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Tipo Deportista</FONT>
+                                            </label>
+                                            <select required class="form-control"
+                                                [(ngModel)]="edDeportista.deportTipodeportista"
+                                                name="deportTipodeportista" #deportTipodeportista="ngModel">
+                                                <option disabled value="0" selected="selected">Seleccione....</option>
+                                                <option value="F">Federado</option>
+                                                <option value="NF">No Federado</option>
+                                                <option value="DB">Dado de Baja</option>
+                                            </select>
+                                            <div [hidden]="deportTipodeportista.valid || deportTipodeportista.pristine"
+                                                class="alert alert-danger">
+                                                Seleccione el Tipo de Deportista.
+                                            </div>
+
+                                            <br>
+                                            <label
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Estado del Deportista</FONT>
+                                            </label>
+                                            <br>
+                                            <select required class="form-control"
+                                                [(ngModel)]="edDeportista.deportEstado" name="deportEstado"
+                                                #deportEstado="ngModel">
+
+                                                <option disabled value="0" selected="selected">Seleccione....</option>
+                                                <option value="true">Activo</option>
+                                                <option value="false">Inactivo</option>
+
+
+                                            </select>
+                                            <div [hidden]="deportEstado.valid || deportEstado.pristine"
+                                                class="alert alert-danger">
+                                                Seleccione el Estado del Deportista.
+                                            </div>
+                                            <br>
+
+                                            <label for="deportTallaunif"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Talla Uniforme</FONT>
+                                            </label>
+
+                                            <input required class="form-control" type="number" max="2"
+                                                [(ngModel)]="edDeportista.deportTallaunif" name="deportTallaunif"
+                                                #deportTallaunif="ngModel">
+                                            <div [hidden]="deportTallaunif.valid || deportTallaunif.pristine"
+                                                class="alert alert-danger">
+                                                La Talla del Uniforme es Necesaria.
+                                            </div>
+
+                                            <br>
+                                            <label for="deportCalzado"
+                                                style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Calzado</FONT>
+                                            </label>
+                                            <br>
+                                            <input class="form-control" type="number" max="2" required
+                                                [(ngModel)]="edDeportista.deportCalzado" name="deportCalzado"
+                                                #deportCalzado="ngModel">
+                                            <div [hidden]="deportCalzado.valid || deportCalzado.pristine"
+                                                class="alert alert-danger">
+                                                El Calzado del Deportista es Necesario.
+                                            </div>
+
+                                            <br>
+
+                                            <label for="cedula"
+                                                style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* División o Prueba</FONT>
+                                            </label>
+                                            <br>
+                                            <input class="form-control" type="text" required id="deportDivisprueba"
+                                            pattern="([A-ZñÑáéíóúÁÉÍÓÚüÜ]{2,})|([A-ZñÑáéíóúÁÉÍÓÚüÜ]{2,} [A-ZñÑáéíóúÁÉÍÓÚüÜ]{2,})"
+                                            onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                [(ngModel)]="edDeportista.deportDivisprueba" name="deportDivisprueba"
+                                                #deportDivisprueba="ngModel">
+                                            <div [hidden]="deportDivisprueba.valid || deportDivisprueba.pristine"
+                                                class="alert alert-danger">
+                                                La División o Prueba es Necesaria.
+                                            </div>
+
+                                            <br>
+
+                                            <label for="nhermanos"
+                                                style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Número de Hermanos</FONT>
+                                            </label>
+                                            <br>
+                                            <input class="form-control" type="number" max="2" id="deportNrohermanos"
+                                                required [(ngModel)]="edDeportista.deportNrohermanos"
+                                                name="deportNrohermanos" #deportNrohermanos="ngModel">
+                                            <div [hidden]="deportNrohermanos.valid || deportNrohermanos.pristine"
+                                                class="alert alert-danger">
+                                                El Número de Hermanos del Deportista son Necesarios.
+                                            </div>
+
+                                            <br>
+
+                                            <label
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Estrato Social</FONT>
+                                            </label>
+                                            <select required class="form-control"
+                                                [(ngModel)]="edDeportista.deportEstratosocial"
+                                                name="deportEstratosocial" #deportEstratosocial="ngModel">
+
+                                                <option disabled value="0" selected="selected">Seleccione....</option>
+                                                <option value="Medio">Medio</option>
+                                                <option value="Alto">Alto</option>
+                                                <option value="Bajo">Bajo</option>
+
+                                            </select>
+                                            <div [hidden]="deportEstratosocial.valid || deportEstratosocial.pristine"
+                                                class="alert alert-danger">
+                                                Seleccione el Estrato Social del Deportista.
+                                            </div>
+
+
+
+
+                                            <br>
+                                            <label for="neducativo"
+                                                style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Nivel Educativo</FONT>
+                                            </label>
+                                            <br>
+                                            <select required class="form-control"
+                                                [(ngModel)]="edDeportista.deportNiveleducativo"
+                                                name="deportNiveleducativo" #deportNiveleducativo="ngModel">
+
+                                                <option disabled value="0" selected="selected">Seleccione....</option>
+                                                <option value="Educación Inicial">Educación Inicial</option>
+                                                <option value="Educación Básica">Educación Básica</option>
+                                                <option value="Bachillerato">Bachillerato</option>
+                                                <option value="Tercer Nivel">Tercer Nivel</option>
+                                                <option value="Cuarto Nivel">Cuarto Nivel</option>
+
+                                            </select>
+                                            <div [hidden]="deportNiveleducativo.valid || deportNiveleducativo.pristine"
+                                                class="alert alert-danger">
+                                                Seleccione el Nivel Educativo del Deportista.
+                                            </div>
+
+                                            <br>
+
+                                            <label for="ieducativa"
+                                                style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Institución Educativa</FONT>
+                                            </label>
+                                            <br>
+                                            <input class="form-control" type="text" id="deportInstieducativa" required pattern="([A-ZñÑáéíóúÁÉÍÓÚüÜ]{2,})|([A-ZñÑáéíóúÁÉÍÓÚüÜ]{2,} [A-ZñÑáéíóúÁÉÍÓÚüÜ]{2,})"
+                                            onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                [(ngModel)]="edDeportista.deportInstieducativa"
+                                                name="deportInstieducativa" #deportInstieducativa="ngModel">
+                                            <div [hidden]="deportInstieducativa.valid || deportInstieducativa.pristine"
+                                                class="alert alert-danger">
+                                                La Institución Educativa del Deportista son Necesarios.
+                                            </div>
+
+                                            <br>
+                                            <div class="modal-footer">
+                                            <button type="submit" class="btn btn-labeled btn-primary"
+                                                onclick="return confirm('Esta seguro realizar los cambios?')"
+                                                [disabled]="!deportistaForm.form.valid" (click)="guardar()">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-floppy-o"></i>
+                                                </span>
+                                                Guardar</button>
+                                            <button (click)="cancelar()" class="btn btn-labeled btn-danger"
+                                                type="reset"><span class="btn-label"><i
+                                                        class="glyphicon glyphicon-remove"></i>
+                                                </span>Cancelar</button>
+                                            <button (click)="atras(deportista)" class="btn btn-labeled btn-warning"
+                                                placement="top" toolyip="Regresar">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-reply"></i>
+                                                </span>
+                                                Volver</button>
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </form>
+
+                                    <br>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </article>
+
+        </div>
+
+
+
+
+    </sa-widgets-grid>
+</div>
+
+
+
+
+
+<!--
+<div id="fotosModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <label for="adjunto"
+                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                        <FONT SIZE=3> * ELIJA UNA OPCIÓN</FONT>
+                    </label>
+                </div>
+                <div class="modal-body" align="center">
+                    <label for="adjunto"
+                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                        <FONT SIZE=3>* Foto del Deportista</FONT>
+                    </label>
+                    <br>
+                    <button class="btn btn-labeled btn-info" href="#fotModal" role="button" data-toggle="modal">
+                        <span class="btn-label">
+                            <i class="glyphicon glyphicon-camera"></i>
+                        </span>
+                        Fotografía</button>
+                    <br>
+                    <br>
+                    <label for="adjunto"
+                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                        <FONT SIZE=3>* Cédula del Deportista</FONT>
+                    </label>
+                    <br>
+                    <button class="btn btn-labeled btn-success" href="#cedModal" role="button" data-toggle="modal">
+                        <span class="btn-label">
+                            <i class="glyphicon glyphicon-camera"></i>
+                        </span>
+                        Cédula</button>
+                </div>
+    
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger">Eliminar</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-labeled btn-info" (click)="guardar2()" onclick="location.reload()">
+                        <span class="btn-label">
+                            <i class="fa fa-floppy-o"></i>
+                        </span>Guardar Cambios Realizados</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+-->
+
+<div id="fotModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <label for="adjunto"
+                    style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                    <FONT SIZE=3>* Por Favor Seleccione la Fotografía del Deportista</FONT>
+                </label>
+            </div>
+            <div [hidden]="submitted">
+                <form (ngSubmit)="onSubmit()" #fotoForm="ngForm">
+                    <div class="modal-body" align="center">
+                        <label class="custom-file-upload">
+                            <fieldset class="smart-form">
+                                <div class="form-group">
+                                    <section class="padding-form">
+                                        <label class="col-lg-12 control-label text-left"
+                                            style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                            <FONT SIZE=3>* Ruta</FONT>
+                                        </label>
+                                        <div class="input input-file col-lg-12">
+                                            <span class="button">
+                                                <input id="file" required
+                                                    onchange="$(this).parent().next('input.txtFile').val($(this).val())"
+                                                    (change)="setArchivo($event)" type="file">
+                                                <i class="glyphicon glyphicon-camera"></i>
+                                                Cambiar
+                                            </span>
+                                            <input type="text" readonly class="txtFile" />
+                                        </div>
+
+                                    </section>
+
+
+
+                                </div>
+
+                            </fieldset>
+
+                        </label>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-labeled btn-primary" type="button" (click)="guardarfoto()" data-dismiss="modal"
+                    onclick="location.reload()">
+                    <span class="btn-label">
+                        <i class="fa fa-floppy-o"></i>
+                    </span>
+                    Guardar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-labeled btn-danger">
+                    <span class="btn-label">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </span>Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="cedModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <label for="adjunto"
+                    style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                    <FONT SIZE=3>* Por Favor Seleccione la Fotografía de la Cédula del Deportista</FONT>
+                </label>
+            </div>
+            <div class="modal-body" align="center">
+                <label class="custom-file-upload">
+                    <fieldset class="smart-form">
+                        <div class="form-group">
+                            <section class="padding-form">
+                                <label class="col-lg-12 control-label text-left"
+                                    style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                    <FONT SIZE=3>* Ruta</FONT>
+                                </label>
+                                <div class="input input-file col-lg-12">
+                                    <span class="button">
+                                        <input id="file2"
+                                            onchange="$(this).parent().next('input.txtFile').val($(this).val())"
+                                            (change)="setArchivo2($event)" type="file">
+                                        <i class="glyphicon glyphicon-camera"></i>
+                                        Cambiar
+                                    </span>
+                                    <input type="text" readonly class="txtFile" />
+                                </div>
+
+                            </section>
+
+
+
+                        </div>
+
+                    </fieldset>
+
+                </label>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-labeled btn-primary" type="button" (click)="guardarcedula()" data-dismiss="modal"
+                    onclick="location.reload()">
+                    <span class="btn-label">
+                        <i class="fa fa-floppy-o"></i>
+                    </span>
+                    Guardar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-labeled btn-danger">
+                    <span class="btn-label">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </span>Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,419 @@
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+
+                        <h2>Edición del Entrenador</h2>
+                    </header>
+
+                    <div class="row" class="cold-md 1" align="right">
+                        <div align="right" class="widget-body no-padding col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                            <br>
+                            <div>
+                                <button (click)="atras(fdiEntrenador)" class="btn btn-labeled btn-warning"
+                                    placement="top" toolyip="Regresar">
+                                    <span class="btn-label">
+                                        <i class="fa fa-reply"></i>
+                                    </span>
+                                    Volver</button>
+
+                                <div [hidden]="submitted">
+                                    <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                        <b> DATOS A EDITAR DEL ENTRENADOR</b>
+                                    </legend>
+                                    <form (ngSubmit)="onSubmit()" #editentrenadorForm="ngForm">
+                                        <div align="left">
+                                            <br>
+                                            <div>
+
+                                                <label for="prsCedula"
+                                                    style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>* Cedula: </FONT>
+                                                </label>
+                                                <br>
+
+                                                <input class="form-control" type="text" id="prsCedula" max="15"
+                                                    required=true [(ngModel)]="fdiEntrenador.fdiPersona.prsCedula"
+                                                    name="prsCedula" #prsCedula="ngModel" disabled>
+                                                <div [hidden]="prsCedula.valid || prsCedula.pristine"
+                                                    class="alert alert-danger">
+                                                    Es Necesario el Número de Cédula
+                                                </div>
+
+                                                <!--<p class="note"><strong >Note: Recuerde {{categoriadisciplina.fdiDisciplina.disciplinaNombre}}</strong></p>-->
+                                                <br>
+                                                <label for="prsNombre"
+                                                    style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>* Nombres del Entrenador: </FONT>
+                                                </label>
+                                                <br>
+                                                <input class="form-control" type="text" id="prsNombre" required=true
+                                                    [(ngModel)]="fdiEntrenador.fdiPersona.prsNombre" name="prsNombre"
+                                                    #prsNombre="ngModel" disabled>
+                                                <div [hidden]="prsNombre.valid || prsNombre.pristine"
+                                                    class="alert alert-danger">
+                                                    Los Nombres del Entrenador son Necesarios
+                                                </div>
+
+                                                <!--<p class="note"><strong >Note: Recuerde {{categoriadisciplina.fdiDisciplina.disciplinaNombre}}</strong></p>-->
+                                                <br>
+
+                                                <label for="prsApellido"
+                                                    style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>* Apellidos del Entrenador: </FONT>
+                                                </label>
+                                                <br>
+                                                <input class="form-control" type="text" id="prsApellido" required=true
+                                                    [(ngModel)]="fdiEntrenador.fdiPersona.prsApellido"
+                                                    name="prsApellido" #prsApellido="ngModel" disabled>
+                                                <div [hidden]="prsApellido.valid || prsApellido.pristine"
+                                                    class="alert alert-danger">
+                                                    Los Apellidos del Entrenador son Necesarios
+                                                </div>
+
+
+
+
+                                            </div>
+                                            <br>
+                                            <label for="adjunto"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Foto y Cédula del Entrenador</FONT>
+                                            </label>
+                                            <br>
+                                            <div align="center">
+                                                <label class="custom-file-upload">
+                                                    <img id="entreFoto" [src]="getUrlDoc1(fdiEntrenador.entreFoto)"
+                                                        alt="Smiley face" height="150" width="150">
+                                                    <br>
+
+                                                    <br>
+                                                    <button class="btn btn-labeled btn-info btn-sm" type="button"
+                                                        href="#fotModal" role="button" data-toggle="modal">
+                                                        <span class="btn-label">
+                                                            <i class="glyphicon glyphicon-camera"></i></span>
+                                                        Añadir</button>
+
+                                                    <a [href]="getUrlDoc1(fdiEntrenador.entreFoto)" target="_blank"
+                                                        class="btn btn-primary btn-sm">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </label>
+
+                                                <label class="custom-file-upload">
+                                                    <img [src]="getUrlDoc2(fdiEntrenador.entreFotoCedula)"
+                                                        alt="Smiley face" height="150" width="150">
+                                                    <br>
+
+                                                    <br>
+
+                                                    <button class="btn btn-labeled btn-info btn-sm" type="button"
+                                                        href="#cedModal" role="button" data-toggle="modal">
+                                                        <span class="btn-label">
+                                                            <i class="glyphicon glyphicon-camera"></i></span>
+                                                        Añadir</button>
+
+                                                    <a [href]="getUrlDoc2(fdiEntrenador.entreFotoCedula)"
+                                                        target="_blank" class="btn btn-primary btn-sm">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+
+                                                </label>
+                                            </div>
+
+                                            <!--<div align="center">
+
+                                        <label class="custom-file-upload">
+                                            <fieldset class="smart-form">
+                                                <div class="form-group">
+                                                    <section class="padding-form">
+                                                        <label
+                                                            class="col-lg-12 control-label text-left" style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=3>* Ruta</FONT></label>
+                                                        <div class="input input-file col-lg-12">
+                                                            <span class="button">
+                                                                <input id="file"
+                                                                    onchange="$(this).parent().next('input.txtFile').val($(this).val())"
+                                                                    (change)="setArchivo($event)" type="file" multiple>
+                                                                <i class="glyphicon glyphicon-camera"></i>
+                                                                Cambiar
+                                                            </span>
+                                                            <input type="text" readonly class="txtFile" />
+                                                        </div>
+
+                                                    </section>
+
+
+
+                                                </div>
+
+                                            </fieldset>
+
+                                        </label>
+
+
+                                    </div>-->
+                                            <br>
+                                            <label for="fechanac"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Fecha de Nacimiento</FONT>
+                                            </label>
+                                            <input type="date" class="form-control" name="prsFechaNaciemineto"
+                                                id="prsFechaNaciemineto" placeholder="Fecha de Nacimiento"
+                                                [(ngModel)]="fdiEntrenador.fdiPersona.prsFechaNaciemineto" required
+                                                #prsFechaNaciemineto="ngModel" disabled>
+                                            <div [hidden]="prsFechaNaciemineto.valid || prsFechaNaciemineto.pristine"
+                                                class="alert alert-danger">
+                                                La Fecha de Nacimiento del Entrenador es Necesaria
+                                            </div>
+                                            <br>
+                                            <label for="telefono"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Teléfono/Celular</FONT>
+                                            </label>
+                                            <input type="tel" class="form-control" name="prsTelefono" id="prsTelefono"
+                                                placeholder="Teléfono/Celular"
+                                                [(ngModel)]="fdiEntrenador.fdiPersona.prsTelefono" required
+                                                pattern="([09]{2}[0-9]{8})" maxlength="10" #prsTelefono="ngModel"
+                                                disabled>
+                                            <div [hidden]="prsTelefono.valid || prsTelefono.pristine"
+                                                class="alert alert-danger">
+                                                El Teléfono del Entrenador es Necesario
+                                            </div>
+
+                                            <br>
+                                            <div>
+                                                <label for="sexo"
+                                                    style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>*Sexo</FONT>
+                                                </label>
+                                                <br>
+                                                <label style="align-items: center"
+                                                    class="radio radio-inline no-margin  ">
+                                                    <input type="radio" name="sexo" value="M" class="radiobox style-2"
+                                                        [(ngModel)]="fdiEntrenador.fdiPersona.prsSexo" disabled> />
+                                                    <span>Masculino</span>
+
+                                                </label>
+
+                                                <label style="align-items: center"
+                                                    class="radio radio-inline no-padding  ">
+                                                    <input type="radio" name="sexo" value="F" class="radiobox style-3 "
+                                                        [(ngModel)]="fdiEntrenador.fdiPersona.prsSexo" disabled> />
+                                                    <span>Femenino</span>
+
+                                                </label>
+                                            </div>
+                                            <br>
+                                            <label for="correo"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Correo Electrónico</FONT>
+                                            </label>
+                                            <input type="email" class="form-control" name="prsCorreo" id="prsCorreo"
+                                                placeholder="Email" [(ngModel)]="fdiEntrenador.fdiPersona.prsCorreo"
+                                                required
+                                                pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                                                #prsCorreo="ngModel" disabled>
+                                            <div [hidden]="prsCorreo.valid || prsCorreo.pristine"
+                                                class="alert alert-danger">
+                                                El Email del Entrenador es Necesario
+                                            </div>
+                                            <br>
+                                            <label
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Estado del Entrenador</FONT>
+                                            </label>
+                                            <br>
+                                            <select required=true class="form-control" id="entreEstado"
+                                                name="entreEstado" #entreEstado="ngModel"
+                                                [(ngModel)]="fdiEntrenador.entreEstado">
+
+                                                <option disabled value="0" selected="selected">Seleccione....</option>
+                                                <option value="true">Activo</option>
+                                                <option value="false">Inactivo</option>
+                                            </select>
+                                            <div [hidden]="entreEstado.valid || entreEstado.pristine"
+                                                class="alert alert-danger">
+                                                Seleccione el Estado del Entrenador.
+                                            </div>
+
+                                            <br>
+
+
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-labeled btn-primary"
+                                                    onclick="return confirm('Esta seguro realizar los cambios?')"
+                                                    [disabled]="!editentrenadorForm.form.valid" (click)="guardar()">
+                                                    <span class="btn-label">
+                                                        <i class="fa fa-floppy-o"></i>
+                                                    </span>
+                                                    Guardar</button>
+                                                <button (click)="cancelar()" class="btn btn-labeled btn-danger"
+                                                    type="reset"><span class="btn-label"><i
+                                                            class="glyphicon glyphicon-remove"></i>
+                                                    </span>Cancelar</button>
+                                                <button (click)="atras(fdiEntrenador)"
+                                                    class="btn btn-labeled btn-warning" placement="top"
+                                                    toolyip="Regresar">
+                                                    <span class="btn-label">
+                                                        <i class="fa fa-reply"></i>
+                                                    </span>
+                                                    Volver</button>
+                                            </div>
+
+
+
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <br>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </article>
+
+        </div>
+
+
+
+
+    </sa-widgets-grid>
+</div>
+
+
+
+
+<div id="fotModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <label for="adjunto"
+                    style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                    <FONT SIZE=3>* Por Favor Seleccione la Fotografía del Entrenador</FONT>
+                </label>
+            </div>
+            <div [hidden]="submitted">
+                <form (ngSubmit)="onSubmit()" #fotoForm="ngForm">
+                    <div class="modal-body" align="center">
+                        <label class="custom-file-upload">
+                            <fieldset class="smart-form">
+                                <div class="form-group">
+                                    <section class="padding-form">
+                                        <label class="col-lg-12 control-label text-left"
+                                            style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                            <FONT SIZE=3>* Ruta</FONT>
+                                        </label>
+                                        <div class="input input-file col-lg-12">
+                                            <span class="button">
+                                                <input id="file" required
+                                                    onchange="$(this).parent().next('input.txtFile').val($(this).val())"
+                                                    (change)="setArchivo($event)" type="file">
+                                                <i class="glyphicon glyphicon-camera"></i>
+                                                Cambiar
+                                            </span>
+                                            <input type="text" readonly class="txtFile" />
+                                        </div>
+
+                                    </section>
+
+
+
+                                </div>
+
+                            </fieldset>
+
+                        </label>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-labeled btn-primary" type="button" (click)="guardarfoto()" data-dismiss="modal"
+                    onclick="location.reload()">
+                    <span class="btn-label">
+                        <i class="fa fa-floppy-o"></i>
+                    </span>
+                    Guardar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-labeled btn-danger">
+                    <span class="btn-label">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </span>Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="cedModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <label for="adjunto"
+                    style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                    <FONT SIZE=3>* Por Favor Seleccione la Fotografía de la Cédula del Entrenador</FONT>
+                </label>
+            </div>
+            <div class="modal-body" align="center">
+                <label class="custom-file-upload">
+                    <fieldset class="smart-form">
+                        <div class="form-group">
+                            <section class="padding-form">
+                                <label class="col-lg-12 control-label text-left"
+                                    style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                    <FONT SIZE=3>* Ruta</FONT>
+                                </label>
+                                <div class="input input-file col-lg-12">
+                                    <span class="button">
+                                        <input id="file2"
+                                            onchange="$(this).parent().next('input.txtFile').val($(this).val())"
+                                            (change)="setArchivo2($event)" type="file">
+                                        <i class="glyphicon glyphicon-camera"></i>
+                                        Cambiar
+                                    </span>
+                                    <input type="text" readonly class="txtFile" />
+                                </div>
+
+                            </section>
+
+
+
+                        </div>
+
+                    </fieldset>
+
+                </label>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-labeled btn-primary" type="button" (click)="guardarcedula()" data-dismiss="modal"
+                    onclick="location.reload()">
+                    <span class="btn-label">
+                        <i class="fa fa-floppy-o"></i>
+                    </span>
+                    Guardar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-labeled btn-danger">
+                    <span class="btn-label">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </span>Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>

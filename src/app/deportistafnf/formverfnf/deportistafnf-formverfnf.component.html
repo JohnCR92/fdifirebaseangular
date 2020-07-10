@@ -1,0 +1,507 @@
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+
+                        <h2>Registro del Deportista</h2>
+                    </header>
+
+                    <div class="row" class="cold-md 1" align="right">
+                        <div align="right" class="widget-body no-padding col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                            <br>
+                            <div>
+                                    <button (click)="atras(deportista)" class="btn btn-labeled btn-warning"
+                                    placement="top" toolyip="Regresar">
+                                    <span class="btn-label">
+                                        <i class="fa fa-reply"></i>
+                                    </span>
+                                    Volver</button>
+
+
+
+
+                                <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                    <b> DATOS DEL DEPORTISTA</b>
+                                </legend>
+                                <div align="left">
+                                    <br>
+                                    <div>
+
+                                        <label for="prsCedula"
+                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                            <FONT SIZE=3>* Cedula: </FONT>
+                                        </label>
+                                        <br>
+
+                                        <input class="form-control" type="text" id="prsCedula" required=true
+                                            [(ngModel)]="edDeportista.fdiPersona.prsCedula" name="prsCedula"
+                                            #prsCedula="ngModel" required disabled>
+                                        <div [hidden]="prsCedula.valid || prsCedula.pristine"
+                                            class="alert alert-danger">
+                                            La Cedula es requerida
+                                        </div>
+
+                                        <!--<p class="note"><strong >Note: Recuerde {{categoriadisciplina.fdiDisciplina.disciplinaNombre}}</strong></p>-->
+                                        <br>
+                                        <label for="categoriaNombre"
+                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                            <FONT SIZE=3>* Categoria</FONT>
+                                        </label>
+                                        <br>
+                                        <input class="form-control" type="text" id="categoriaNombre" required=true
+                                            [(ngModel)]="edDeportista.fdiCategoriaDisciplina.fdiCategoria.categoriaNombre"
+                                            name="categoriaNombre" #categoriaNombre="ngModel" required disabled>
+                                        <div [hidden]="categoriaNombre.valid || categoriaNombre.pristine"
+                                            class="alert alert-danger">
+                                            La Categoria Deportiva es Requerida
+                                        </div>
+
+                                        <br>
+                                        <label for="disciplinaNombre"
+                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                            <FONT SIZE=3>* Disciplina</FONT>
+                                        </label>
+                                        <br>
+                                        <input class="form-control" type="text" id="disciplinaNombre" required=true
+                                            [(ngModel)]="edDeportista.fdiCategoriaDisciplina.fdiDisciplina.disciplinaNombre "
+                                            name="disciplinaNombre" #disciplinaNombre="ngModel" required disabled>
+                                        <div [hidden]="disciplinaNombre.valid || disciplinaNombre.pristine"
+                                            class="alert alert-danger">
+                                            La Disciplina Deportiva es Requerida
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                    <label for="adjunto"
+                                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Foto y Cédula del Deportista</FONT>
+                                    </label>
+                                    <br>
+                                    <div align="center">
+                                        <label class="custom-file-upload">
+                                            <img id="deportFoto" [src]="getUrlDoc1(edDeportista.deportFoto)"
+                                                alt="Smiley face" height="150" width="150">
+                                            <br>
+
+                                            <br>
+
+                                            <a [href]="getUrlDoc1(edDeportista.deportFoto)" target="_blank"
+                                                class="btn btn-primary btn-sm">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </label>
+
+                                        <label class="custom-file-upload">
+                                            <img [src]="getUrlDoc2(edDeportista.deportFotocedula)" alt="Smiley face"
+                                                height="150" width="150">
+                                            <br>
+
+                                            <br>
+
+                                            <a [href]="getUrlDoc2(edDeportista.deportFotocedula)" target="_blank"
+                                                class="btn btn-primary btn-sm">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+
+                                        </label>
+                                    </div>
+
+
+                                    <br>
+                                    <label for="deportTipodeportista"
+                                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Tipo Deportista</FONT>
+                                    </label>
+                                    <select required class="form-control" name="deportTipodeportista"
+                                        [(ngModel)]="edDeportista.deportTipodeportista" required disabled>
+                                        <option [value]=null>Seleccione...</option>
+                                        <option value="F">Federado</option>
+                                        <option value="NF">No Federado</option>
+                                        <option value="B">Dar de Baja</option>
+                                    </select>
+
+                                    <br>
+                                    <label
+                                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Estado del Deportista</FONT>
+                                    </label>
+                                    <br>
+                                    <select required class="form-control" name="estado"
+                                        [(ngModel)]="edDeportista.deportEstado" required disabled>
+
+                                        <option [value]=null>Seleccione..</option>
+                                        <option value="true">Activo</option>
+                                        <option value="false">Inactivo</option>
+
+
+                                    </select>
+                                    <br>
+
+                                    <label
+                                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Talla Uniforme</FONT>
+                                    </label>
+                                    <input required class="form-control" type="number" max="2"
+                                        [(ngModel)]="edDeportista.deportTallaunif" name="deportTallaunif"
+                                        #deportTallaunif="ngModel" disabled>
+                                    <div [hidden]="deportTallaunif.valid || deportTallaunif.pristine"
+                                        class="alert alert-danger">
+                                        La Talla del Uniforme es Necesaria.
+                                    </div>
+
+                                    <br>
+                                    <label for="cedula"
+                                        style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Calzado</FONT>
+                                    </label>
+                                    <br>
+                                    <input class="form-control" type="number" max="10" required=true
+                                        [(ngModel)]="edDeportista.deportCalzado" required disabled>
+
+                                    <br>
+
+                                    <label for="cedula"
+                                        style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* División o Prueba</FONT>
+                                    </label>
+                                    <br>
+                                    <input class="form-control" type="text" max="10" required=true
+                                        [(ngModel)]="edDeportista.deportDivisprueba" required disabled>
+
+                                    <br>
+
+                                    <label for="nhermanos"
+                                        style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Número de Hermanos</FONT>
+                                    </label>
+                                    <br>
+                                    <input class="form-control" type="number" max="10" required=true
+                                        [(ngModel)]="edDeportista.deportNrohermanos" required disabled>
+
+                                    <br>
+
+                                    <label
+                                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Estrato Social</FONT>
+                                    </label>
+                                    <select required class="form-control" name="estado"
+                                        [(ngModel)]="edDeportista.deportEstratosocial" required disabled>
+
+                                        <option [value]=null>Seleccione..</option>
+                                        <option value="Medio">Medio</option>
+                                        <option value="Alto">Alto</option>
+                                        <option value="Bajo">Bajo</option>
+
+                                    </select>
+
+
+
+
+                                    <br>
+                                    <label for="neducativo"
+                                        style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Nivel Educativo</FONT>
+                                    </label>
+                                    <br>
+                                    <select required class="form-control" name="neducativo"
+                                        [(ngModel)]="edDeportista.deportNiveleducativo" required disabled>
+
+                                        <option disabled>Seleccione..</option>
+                                        <option value="Educación Inicial">Educación Inicial</option>
+                                        <option value="Educación Básica">Educación Básica</option>
+                                        <option value="Bachillerato">Bachillerato</option>
+                                        <option value="Tercer Nivel">Tercer Nivel</option>
+                                        <option value="Cuarto Nivel">Cuarto Nivel</option>
+
+                                    </select>
+
+                                    <br>
+
+                                    <label for="ieducativa"
+                                        style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Institución Educativa</FONT>
+                                    </label>
+                                    <br>
+                                    <input class="form-control" type="text" required=true
+                                        [(ngModel)]="edDeportista.deportInstieducativa" required disabled>
+
+                                    <br>
+
+
+
+
+
+
+                                </div>
+
+                                <br>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </article>
+
+        </div>
+
+
+
+
+    </sa-widgets-grid>
+</div>
+
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+
+                        <h2>Formulario del Deportista</h2>
+                    </header>
+
+                    <div class="row" class="cold-md 1">
+                        <div class="widget-body no-padding col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+
+                            
+                                <br>
+                                <div>
+
+                                    <img align="right" src="assets/img/FDI.png" alt="SmartAdmin" height="65" width="65">
+                                    <img align="left" src="assets/img/fdiiii.png" alt="SmartAdmin" height="65"
+                                        width="65">
+
+                                
+
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+
+
+                                <div>
+
+                                    <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                        <b> FEDERACIÓN DEPORTIVA DE IMBABURA</b>
+                                    </legend>
+                                </div>
+                                <div>
+
+                                    <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                        <b> DATOS DEL DEPORTISTA</b>
+                                    </legend>
+                                </div>
+                                    <div id="datosImpresion" align="left">
+
+                                        <div id="print-section">
+
+                                            
+                                                    <section>
+                                                        <label for="prsCedula"
+                                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=4>* Cédula: </FONT>
+                                                        </label><b>
+                                                            <FONT SIZE=3>{{edDeportista.fdiPersona.prsCedula}}
+                                                            </FONT>
+                                                        </b>
+                                                        <b> <img align="right" [src]="getUrlDoc1(edDeportista.deportFoto)"
+                                                            alt="Smiley face" height="90" width="90"></b>
+                                                        <br>
+                                                        <br>
+                                                        <label for="prsCedula"
+                                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=4>* Apellidos: </FONT>
+                                                        </label><b>
+                                                            <FONT SIZE=3>{{edDeportista.fdiPersona.prsApellido}}
+                                                            </FONT>
+                                                        </b>
+                                                        <br>
+                                                        <br>
+                                                        <label for="prsCedula"
+                                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=4>* Nombres: </FONT>
+                                                        </label><b>
+                                                            <FONT SIZE=3>{{edDeportista.fdiPersona.prsNombre}}
+                                                            </FONT>
+                                                        </b>
+                                                        <br>
+                                                        <br>
+
+                                                        <label for="prsCedula"
+                                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=4>* Disciplina: </FONT>
+                                                        </label><b>
+                                                            <FONT SIZE=3>
+                                                                {{edDeportista.fdiCategoriaDisciplina.fdiDisciplina.disciplinaNombre}}
+                                                            </FONT>
+                                                        </b>
+                                                        <br>
+                                                        <br>
+                                                        <label for="prsCedula"
+                                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=4>* Categoria: </FONT>
+                                                        </label><b>
+                                                            <FONT SIZE=3>
+                                                                {{edDeportista.fdiCategoriaDisciplina.fdiCategoria.categoriaNombre}}
+                                                            </FONT>
+                                                        </b>
+                                                        <br>
+                                                        <br>
+                                                        <label for="prsCedula"
+                                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=4>* Fecha de Nacimiento: </FONT>
+                                                        </label><b>
+                                                            <FONT SIZE=3>
+                                                                {{edDeportista.fdiPersona.prsFechaNaciemineto}}
+                                                            </FONT>
+                                                        </b>
+                                                        <br>
+                                                        <br>
+
+                                                        <label for="prsCedula"
+                                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=4>* Sexo: </FONT>
+                                                        </label><b>
+                                                            <FONT SIZE=3>
+                                                                {{edDeportista.fdiPersona.prsSexo}}
+                                                            </FONT>
+                                                        </b>
+                                                        <br>
+                                                        <br>
+                                                        <label for="prsCedula"
+                                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=4>* Tipo del Deportista: </FONT>
+                                                        </label><b>
+                                                            <FONT SIZE=3>
+                                                                {{edDeportista.deportTipodeportista}}
+                                                            </FONT>
+                                                        </b>
+                                                        <br>
+                                                        <br>
+                                                        <label for="prsCedula"
+                                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=4>* Talla del Uniforme: </FONT>
+                                                        </label><b>
+                                                            <FONT SIZE=3>
+                                                                {{edDeportista.deportTallaunif}}
+                                                            </FONT>
+                                                        </b>
+                                                        <br>
+                                                        <br>
+                                                        <label for="prsCedula"
+                                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=4>* Calzado: </FONT>
+                                                        </label><b>
+                                                            <FONT SIZE=3>
+                                                                {{edDeportista.deportCalzado}}
+                                                            </FONT>
+                                                        </b>
+                                                        <br>
+                                                        <br>
+                                                        <label for="prsCedula"
+                                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=4>* Número de Hermanos: </FONT>
+                                                        </label><b>
+                                                            <FONT SIZE=3>
+                                                                {{edDeportista.deportNrohermanos}}
+                                                            </FONT>
+                                                        </b>
+                                                        <br>
+                                                        <br>
+                                                        <label for="prsCedula"
+                                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=4>* Estrato Social: </FONT>
+                                                        </label><b>
+                                                            <FONT SIZE=3>
+                                                                {{edDeportista.deportEstratosocial}}
+                                                            </FONT>
+                                                        </b>
+                                                        <br>
+                                                        <br>
+                                                        <label for="prsCedula"
+                                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=4>* Nivel Educativo: </FONT>
+                                                        </label><b>
+                                                            <FONT SIZE=3>
+                                                                {{edDeportista.deportNiveleducativo}}
+                                                            </FONT>
+                                                        </b>
+                                                        <br>
+                                                        <br>
+                                                        <label for="prsCedula"
+                                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                            <FONT SIZE=4>* Institudción Educativa: </FONT>
+                                                        </label><b>
+                                                            <FONT SIZE=3>
+                                                                {{edDeportista.deportInstieducativa}}
+                                                            </FONT>
+                                                        </b>
+
+                                                    </section>
+                                                
+                                        </div>
+                                    </div>
+                                
+                                
+
+                                    <script type="text/javascript">
+                                        $("#hoolaa").click(function () {
+                                            $("div#datosImpresion").printArea();
+                                        })
+                                    </script>
+
+                                    <div class="modal-footer">
+                                        <button class="btn btn-labeled btn-primary" (click)="print()">
+                                            <span class="btn-label">
+                                                <i class="fa fa-print" aria-hidden="true"></i></span> Imprimir</button>
+
+
+                                        <button (click)="atras(edDeportista)" class="btn btn-labeled btn-danger"><span
+                                                class="btn-label"><i class="glyphicon glyphicon-remove"></i>
+                                            </span>Cancelar</button>
+                                    </div>
+
+                                
+
+
+                                <br>
+
+                            
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            </article>
+
+        </div>
+
+
+
+
+    </sa-widgets-grid>
+</div>

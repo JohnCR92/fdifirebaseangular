@@ -1,0 +1,278 @@
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+
+                        <h2>Selección de Entrenadores</h2>
+                    </header>
+
+
+
+
+                    <div align="center">
+
+                        <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                            <b> SELECCIONE EL ENTRENADOR</b>
+                        </legend>
+
+                        <div>
+                            <button class="btn btn-labeled btn-info btn-sm" type="button" href="#entreModal"
+                                role="button" data-toggle="modal">
+                                <span class="btn-label">
+                                    <i class="glyphicon glyphicon-user"></i></span>
+                                Seleccionar</button>
+                        </div>
+                        <br>
+                        <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                            <b> </b>
+                        </legend>
+                    </div>
+                    <br>
+
+
+
+
+
+                    <br>
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+            </article>
+
+        </div>
+    </sa-widgets-grid>
+</div>
+
+<div id="entreModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <label for="adjunto"
+                    style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                    <FONT SIZE=3>* Por Favor Seleccione los Nombres y la Cédula del Entrenador</FONT>
+                </label>
+            </div>
+            <br>
+            <div align="center" [hidden]="submitted">
+                <form (ngSubmit)="onSubmit()" #entreForm="ngForm">
+                    <label for="prsCedula"
+                        style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                        <FONT SIZE=3>* Seleccione los Nombres y la Cédula del Entrenador: </FONT>
+                    </label>
+                    <br>
+                    <select (change)="getDisciplinas($event.target.value)" required=true id="prsCedula"
+                        class="form-control" [(ngModel)]="fdiEntrenador.fdiPersona.prsId" [compareWith]="compare"
+                        name="prsCedula" #prsCedula="ngModel">
+                        <option value="0" selected="selected">Seleccione....</option>
+                        <option *ngFor="let it of fdiEntrenadors" [value]="it.entreId">{{it.fdiPersona.prsApellido}}
+                            {{it.fdiPersona.prsNombre}} / {{it.fdiPersona.prsCedula}}</option>
+                    </select>
+                </form>
+            </div>
+            <br>
+
+            <div class="modal-footer">
+                <button class="btn btn-labeled btn-success" type="button" [disabled]="!entreForm.form.valid"
+                    href="#listModal" role="button" data-toggle="modal" data-target=".bd-example-modal-lg">
+                    <span class="btn-label">
+                        <i class="fa fa-check-square-o"></i>
+                    </span>
+                    Seleccione su Respectiva Disciplina</button>
+                <button (click)="cancelar()" class="btn btn-labeled btn-danger" type="reset">
+                    <span class="btn-label">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </span>Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="listModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <label for="adjunto"
+                    style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                    <FONT SIZE=3>* Por Favor Seleccione Disciplina y Categoría, para la Toma de Lista Correspondiente
+                    </FONT>
+                </label>
+            </div>
+            <br>
+            <br>
+            <div align="center">
+                <label for="prsCedula"
+                    style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                    <FONT SIZE=3>* Seleccione Disciplina y Categoría, para la Toma de Lista Correspondiente: </FONT>
+                </label>
+                <br>
+                <select (change)="getDeportitasByEntrenador($event.target.value)" required=true id="prsCedula"
+                    class="form-control" name="disciplinaId">
+                    <option value="0" selected="selected">Seleccione....</option>
+                    <option *ngFor="let it of fdiCategoriaDisciplinas" [value]="it.id">{{it.nombres}}</option>
+                </select>
+            </div>
+
+            <br>
+
+            <div id="content">
+                <sa-widgets-grid>
+                    <div class="row">
+                        <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                            <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true"
+                                color="white">
+
+                                <header>
+                                    <span class="widget-icon">
+                                        <i class="fa fa-table"></i>
+                                    </span>
+
+                                    <h2>Lista de Deportistas en sus Respectivas Disciplinas y Categorías</h2>
+                                </header>
+
+                                <div class="row" class="cold-md 1" align="right">
+                                    <div align="right"
+                                        class="widget-body no-padding col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+
+                                        <div>
+                                            <br>
+                                            <div>
+
+                                                <img align="right" src="assets/img/FDI.png" alt="SmartAdmin" height="65"
+                                                    width="65">
+                                                <img align="left" src="assets/img/fdiiii.png" alt="SmartAdmin"
+                                                    height="65" width="65">
+
+                                            </div>
+
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+
+
+                                            <div>
+
+                                                <legend align="center"
+                                                    style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                                    <b> FEDERACIÓN DEPORTIVA DE IMBABURA</b>
+                                                </legend>
+                                            </div>
+                                            <div>
+
+                                                <legend align="center"
+                                                    style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                                    <b> LISTA DE DEPORTISTAS EN SUS RESPECTIVAS DISCIPLINAS Y
+                                                        CATEGORÍAS</b>
+                                                </legend>
+                                            </div>
+
+                                            <div align="left">
+
+                                                <div class="row" id="datosImpresion" align="center">
+
+                                                    <div id="print-section">
+
+                                                        <div id="content">
+                                                            <div *ngIf="!cargando">
+                                                                <sa-datatable [options]="{
+                                                                            colReorder: true,
+                                                                            dom: 'Bfrtip',
+                                                                            buttons: [
+                                                                            'excel', 'pdf'
+                                                                            ]
+                                                                            }" paginationLength="true"
+                                                                    tableClass=" table  table-striped table-bordered table-hover"
+                                                                    align="center">
+                                                                    <thead class="f" style="text-align: center">
+                                                                        <title id="titulo" align="center">
+                                                                            Lista de Deportistas en sus Respectivas Disciplinas y Categorías</title>
+                                                                        <tr>
+
+                                                                            <td>Cédula</td>
+                                                                            <td>Apellidos y Nombres</td>
+
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr *ngFor="let persona of edDeportistas">
+                                                                            <td>
+                                                                                {{persona.edDeportista.fdiPersona.prsCedula}}
+                                                                            </td>
+                                                                            <td>
+                                                                                {{persona.edDeportista.fdiPersona.prsApellido}} {{persona.edDeportista.fdiPersona.prsNombre}}
+                                                                            </td>
+
+
+
+                                                                        </tr>
+
+                                                                    </tbody>
+
+                                                                </sa-datatable>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <br>
+
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                        </article>
+
+                    </div>
+
+
+
+
+                </sa-widgets-grid>
+            </div>
+
+
+
+
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-labeled btn-danger">
+                    <span class="btn-label">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </span>Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>

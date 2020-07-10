@@ -1,0 +1,155 @@
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+
+                        <h2>Registro de los Deportistas Aspirantes</h2>
+                    </header>
+                    <div class="row" class="cold-md 1" align="right">
+                        <div align="right" class="widget-body no-padding col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                            <div>
+                                <br>
+                                
+                                <div [hidden]="submitted">
+                                    <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                        <b> DATOS DE LOS DEPORTISTAS ASPIRANTES</b>
+                                    </legend>
+                                    <form (ngSubmit)="onSubmit()" #deportistaasForm="ngForm">
+                                        <div align="left">
+                                            <br>
+                                            <div>
+
+                                                <label for="cedula"
+                                                    style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>*Seleccione la Cédula del Aspirante</FONT>
+                                                </label>
+                                                <select class="form-control" [(ngModel)]="edDeportista.fdiPersona.prsId"
+                                                    required id="prsId" name="prsId" #prsId="ngModel"
+                                                    [compareWith]="compare">
+                                                    <option disabled value="0" selected="selected">Seleccione....
+                                                    </option>
+                                                    <option *ngFor="let fdiPersona of fdiPersonas;"
+                                                        [value]="fdiPersona.prsId">{{fdiPersona.prsApellido}}
+                                                        {{fdiPersona.prsNombre}} / {{fdiPersona.prsCedula}}</option>
+                                                </select>
+                                                <div [hidden]="prsId.valid || prsId.pristine"
+                                                    class="alert alert-danger">
+                                                    Debe Seleccionar la Cédula del Aspirante
+                                                </div>
+                                                <!--<p class="note"><strong >Note: Recuerde {{categoriadisciplina.fdiDisciplina.disciplinaNombre}}</strong></p>-->
+                                                <br>
+                                                <label for="cedula"
+                                                    style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>* Disciplina con su respectiva Categoria</FONT>
+                                                </label>
+
+                                                <select class="form-control"
+                                                    [(ngModel)]="edDeportista.fdiCategoriaDisciplina.catdisciId"
+                                                    required id="catdisciId" name="catdisciId" #catdisciId="ngModel"
+                                                    [compareWith]="compare">
+                                                    <option disabled value="0" selected="selected">Seleccione....
+                                                    </option>
+                                                    <option
+                                                        *ngFor="let fdiCategoriaDisciplina of fdiCategoriaDisciplinas;"
+                                                        [value]="fdiCategoriaDisciplina.catdisciId">
+                                                        {{fdiCategoriaDisciplina.fdiDisciplina.disciplinaNombre}} /
+                                                        {{fdiCategoriaDisciplina.fdiCategoria.categoriaNombre}}</option>
+                                                </select>
+                                                <div [hidden]="catdisciId.valid || catdisciId.pristine"
+                                                    class="alert alert-danger">
+                                                    Debe Seleccionar la Disciplina con su respectiva Categoria
+                                                </div>
+                                            </div>
+                                            <br>
+
+                                            <label for="fechanac"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Tipo Deportista</FONT>
+                                            </label>
+                                            <select class="form-control" name="tipodeport"
+                                                [(ngModel)]="edDeportista.deportTipodeportista" required
+                                                id="deportTipodeportista" name="deportTipodeportista"
+                                                #deportTipodeportista="ngModel">
+                                                <option disabled value="0" selected="selected">Seleccione....</option>
+                                                <option value="A">Aspirante</option>
+                                                <option value="F">Federado</option>
+                                                <option value="NF">No Federado</option>
+                                            </select>
+                                            <div [hidden]="deportTipodeportista.valid || deportTipodeportista.pristine"
+                                                class="alert alert-danger">
+                                                Debe Seleccionar el Tipo de Deportista
+                                            </div>
+                                            <br>
+                                            <label
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Estado del Aspirante</FONT>
+                                            </label>
+                                            <br>
+                                            <select class="form-control" [(ngModel)]="edDeportista.deportEstado"
+                                                required id="deportEstado" name="deportEstado" #deportEstado="ngModel">
+
+                                                <option disabled value="0" selected="selected">Seleccione....</option>
+                                                <option value="true">Activo</option>
+                                                <option value="false">Inactivo</option>
+
+
+                                            </select>
+                                            <div [hidden]="deportEstado.valid || deportEstado.pristine"
+                                                class="alert alert-danger">
+                                                Debe Seleccionar el Estado del Aspirante
+                                            </div>
+
+
+                                            <br>
+                                            <div class="modal-footer">
+                                            <button onclick="return confirm('Esta seguro realizar los cambios?')"
+                                                type="submit" class="btn btn-labeled btn-primary"
+                                                [disabled]="!deportistaasForm.form.valid" (click)="guardar()">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-floppy-o"></i>
+                                                </span>
+                                                Guardar</button>
+                                            <button (click)="cancelar()" class="btn btn-labeled btn-danger"
+                                                type="reset">
+                                                <span class="btn-label">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </span>Cancelar</button>
+                                            <button (click)="atras(edDeportista)" class="btn btn-labeled btn-warning"
+                                                placement="top" toolyip="Regresar">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-reply"></i>
+                                                </span>
+                                                Volver</button>
+                                                </div>
+
+
+                                        </div>
+                                    </form>
+
+                                    <br>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </article>
+
+        </div>
+
+
+
+
+    </sa-widgets-grid>
+</div>

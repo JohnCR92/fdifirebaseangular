@@ -1,0 +1,150 @@
+<div id="content">
+
+
+    <sa-widgets-grid>
+
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+
+                </div>
+                <fieldset>
+                    <div sa-widget [editbutton]="false" color="blueDark">
+                        <header>
+                            <span class="widget-icon">
+                                <i class="fa fa-table"></i>
+                            </span>
+                            <h2>Lista de los Entrenadores con sus Respectivos Deportistas</h2>
+                        </header>
+                        <div *ngIf="this.temp_var">
+                            <div class="widget-body no-padding ">
+                                <div class="table-responsive">
+
+
+
+                                    <sa-datatable paginationLength="true"
+                                        tableClass=" table  table-striped table-bordered table-hover">
+
+                                        <thead class="f">
+                                            <tr align="center">
+                                                <!-- <td>ID DE LA CATEGORIA CON SU RESPECTIVA DISCIPLINA</td>-->
+                                                <td>Cédula Entrenador</td>
+                                                <td>Nombre Entrenador</td>
+                                                <td>Apellido Entrenador</td>
+                                                <td>Foto Entrenador</td>
+                                                <td>Cédula Deportista</td>
+                                                <td>Nombre Deportista</td>
+                                                <td>Apellido Deportista</td>
+                                                <td>Foto Deportista</td>
+                                                <td>Disciplina / Categoría Deportista</td>
+                                                <td>Editar</td>
+                                                <td>Ficha</td>
+                                                <td>Eliminar</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let edDeportistaEntrenador of edDeportistaEntrenadors"
+                                                align="center">
+
+                                                <!-- <td>
+                                                            {{categoriadisciplina.catdisciId}}
+                                                        </td>-->
+
+                                                <td>
+                                                    {{edDeportistaEntrenador.fdiEntrenador.fdiPersona.prsCedula}}
+                                                </td>
+
+                                                <td>
+                                                    {{edDeportistaEntrenador.fdiEntrenador.fdiPersona.prsNombre}}
+                                                </td>
+                                                <td>
+                                                    {{edDeportistaEntrenador.fdiEntrenador.fdiPersona.prsApellido}}
+                                                </td>
+                                                <td>
+                                                    <img [src]="getUrlDoc2(edDeportistaEntrenador.fdiEntrenador.entreFoto)"
+                                                        alt="Smiley face" height="42" width="42">
+                                                </td>
+
+
+                                                <td>
+                                                    {{edDeportistaEntrenador.edDeportista.fdiPersona.prsCedula}}
+                                                </td>
+
+                                                <td>
+                                                    {{edDeportistaEntrenador.edDeportista.fdiPersona.prsNombre}}
+                                                </td>
+                                                <td>
+                                                    {{edDeportistaEntrenador.edDeportista.fdiPersona.prsApellido}}
+                                                </td>
+                                                <td>
+                                                    <img [src]="getUrlDoc1(edDeportistaEntrenador.edDeportista.deportFoto)"
+                                                        alt="Smiley face" height="42" width="42">
+                                                </td>
+                                                <td>
+                                                    {{edDeportistaEntrenador.edDeportista.fdiCategoriaDisciplina.fdiDisciplina.disciplinaNombre}}
+                                                    /
+                                                    {{edDeportistaEntrenador.edDeportista.fdiCategoriaDisciplina.fdiCategoria.categoriaNombre}}
+                                                </td>
+
+                                                <td>
+                                                    <!--<button (click)="editar(autor)">Editar</button>-->
+                                                    <a class="btn btn-primary btn-sm"
+                                                        routerLink="formeditde/{{edDeportistaEntrenador.idDepEntre}}">
+                                                        <i class="fa fa-edit"></i>
+
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <!--<button (click)="editar(autor)">Editar</button>-->
+                                                    <a class="btn btn-info btn-sm"
+                                                        routerLink="formverde/{{edDeportistaEntrenador.idDepEntre}}">
+                                                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+
+                                                    </a>
+                                                </td>
+                                                <td>
+
+                                                    <a class="btn btn-danger btn-sm"
+                                                        (click)="eliminar(edDeportistaEntrenador)">
+                                                        <i class="fa fa-trash-o"></i>
+
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+
+                                    </sa-datatable>
+                                    <br>
+
+                                    <div class="modal-footer">
+
+                                        <button class="btn btn-labeled btn-primary" routerLink="form" placement="top"
+                                            toolyip="Crear Entrenador">
+                                            <span class="btn-label">
+                                                <i class="fa fa-plus-circle"></i>
+                                            </span>
+                                            Nuevo</button>
+
+                                        <button class="btn btn-labeled btn-info btn-sm" routerLink="reportes"
+                                            placement="top" toolyip="Reportes">
+                                            <span class="btn-label">
+                                                <i class="fa fa-list-alt" aria-hidden="true"></i>
+                                            </span>
+                                            Reporte General </button>
+
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </article>
+        </div>
+    </sa-widgets-grid>
+</div>

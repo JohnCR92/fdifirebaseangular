@@ -1,0 +1,351 @@
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+
+                        <h2>Edición del Motivo de Baja del Deportista</h2>
+                    </header>
+                    <div class="row" class="cold-md 1" align="right">
+                        <div align="right" class="widget-body no-padding col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                            <div>
+
+                                <br>
+                                <button (click)="atras(deportista)" class="btn btn-labeled btn-warning" placement="top"
+                                    toolyip="Regresar">
+                                    <span class="btn-label">
+                                        <i class="fa fa-reply"></i>
+                                    </span>
+                                    Volver</button>
+
+                                <div [hidden]="submitted">
+                                    <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                        <b> DATOS A EDITAR RESPECTO AL MOTIVO DE BAJA DEL DEPORTISTA</b>
+                                    </legend>
+                                    <form (ngSubmit)="onSubmit()" #deportistabajaForm="ngForm">
+                                        <div align="left">
+                                            <br>
+                                            <div>
+
+                                                <label for="prsCedula"
+                                                    style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>* Cedula: </FONT>
+                                                </label>
+                                                <br>
+
+                                                <input class="form-control" type="text" id="prsCedula" max="10"
+                                                    required=true [(ngModel)]="edDeportista.fdiPersona.prsCedula"
+                                                    name="prsCedula" #prsCedula="ngModel" disabled>
+                                                <div [hidden]="prsCedula.valid || prsCedula.pristine"
+                                                    class="alert alert-danger">
+                                                    La Cedula es requerida
+                                                </div>
+
+                                                <!--<p class="note"><strong >Note: Recuerde {{categoriadisciplina.fdiDisciplina.disciplinaNombre}}</strong></p>-->
+                                                <br>
+                                                <label for="prsNombre"
+                                                    style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>* Nombres del Deportista: </FONT>
+                                                </label>
+                                                <br>
+                                                <input class="form-control" type="text" id="prsNombre" max="10"
+                                                    required=true [(ngModel)]="edDeportista.fdiPersona.prsNombre"
+                                                    name="prsNombre" #prsNombre="ngModel" disabled>
+                                                <div [hidden]="prsNombre.valid || prsNombre.pristine"
+                                                    class="alert alert-danger">
+                                                    Los Nombres del Deportista son requeridos
+                                                </div>
+
+                                                <!--<p class="note"><strong >Note: Recuerde {{categoriadisciplina.fdiDisciplina.disciplinaNombre}}</strong></p>-->
+
+                                                <br>
+                                                <label for="prsApellido"
+                                                    style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>* Apellidos del Deportista: </FONT>
+                                                </label>
+                                                <br>
+                                                <input class="form-control" type="text" id="prsApellido" max="10"
+                                                    required=true [(ngModel)]="edDeportista.fdiPersona.prsApellido"
+                                                    name="prsApellido" #prsApellido="ngModel" disabled>
+                                                <div [hidden]="prsApellido.valid || prsApellido.pristine"
+                                                    class="alert alert-danger">
+                                                    Los Apellidos del Deportista son requeridos
+                                                </div>
+
+                                                <!--<p class="note"><strong >Note: Recuerde {{categoriadisciplina.fdiDisciplina.disciplinaNombre}}</strong></p>-->
+                                                <br>
+
+
+                                                <label for="disciplinaNombre"
+                                                    style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>* Disciplina y Categoría: </FONT>
+                                                </label>
+                                                <br>
+                                                <select id="fdiCategoriaDisciplina" required=true class="form-control"
+                                                    [(ngModel)]="edDeportista.fdiCategoriaDisciplina.catdisciId"
+                                                    name="fdiCategoriaDisciplina" #fdiCategoriaDisciplina="ngModel"
+                                                    [compareWith]="compare">
+                                                    <option value="0">Seleccione....</option>
+                                                    <option
+                                                        *ngFor="let fdiCategoriaDisciplina of fdiCategoriaDisciplinas;"
+                                                        [value]="fdiCategoriaDisciplina.catdisciId">
+                                                        {{fdiCategoriaDisciplina.fdiDisciplina.disciplinaNombre}} /
+                                                        {{fdiCategoriaDisciplina.fdiCategoria.categoriaNombre}}</option>
+                                                </select>
+                                                <div [hidden]="fdiCategoriaDisciplina.valid || fdiCategoriaDisciplina.pristine"
+                                                    class="alert alert-danger">
+                                                    Seleccione la Disciplina con su respectiva Categoría
+                                                </div>
+
+                                                <br>
+
+
+                                            </div>
+                                            <br>
+                                            <label for="adjunto"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Foto y Cédula del Deportista</FONT>
+                                            </label>
+                                            <br>
+                                            <div align="center">
+                                                <label class="custom-file-upload">
+                                                    <img id="deportFoto" [src]="getUrlDoc1(edDeportista.deportFoto)"
+                                                        alt="Smiley face" height="150" width="150">
+                                                    <br>
+
+                                                    <br>
+
+                                                    <a [href]="getUrlDoc1(edDeportista.deportFoto)" target="_blank"
+                                                        class="btn btn-primary btn-sm">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </label>
+
+                                                <label class="custom-file-upload">
+                                                    <img [src]="getUrlDoc2(edDeportista.deportFotocedula)"
+                                                        alt="Smiley face" height="150" width="150">
+                                                    <br>
+
+                                                    <br>
+
+                                                    <a [href]="getUrlDoc2(edDeportista.deportFotocedula)"
+                                                        target="_blank" class="btn btn-primary btn-sm">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+
+                                                </label>
+                                            </div>
+
+
+                                            <br>
+                                            <label for="deportTipodeportista"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Tipo del Deportista</FONT>
+                                            </label>
+                                            <select required class="form-control"
+                                                [(ngModel)]="edDeportista.deportTipodeportista"
+                                                name="deportTipodeportista" #deportTipodeportista="ngModel">
+                                                <option disabled>Seleccione...</option>
+                                                <option value="F">Federado</option>
+                                                <option value="NF">No Federado</option>
+                                                <option value="DB">Dado de Baja</option>
+                                            </select>
+                                            <div [hidden]="deportTipodeportista.valid || deportTipodeportista.pristine"
+                                                class="alert alert-danger">
+                                                Seleccione el Tipo del Deportista.
+                                            </div>
+
+                                            <br>
+                                            <label
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Estado del Deportista</FONT>
+                                            </label>
+                                            <br>
+                                            <select required class="form-control"
+                                                [(ngModel)]="edDeportista.deportEstado" name="deportEstado"
+                                                #deportEstado="ngModel">
+
+                                                <option disabled>Seleccione..</option>
+                                                <option value="true">Activo</option>
+                                                <option value="false">Inactivo</option>
+
+
+                                            </select>
+                                            <div [hidden]="deportEstado.valid || deportEstado.pristine"
+                                                class="alert alert-danger">
+                                                Seleccione el Estado del Deportista.
+                                            </div>
+                                            <br>
+                                            <label for="deportBajaDificultad"
+                                                style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Dificultad</FONT>
+                                            </label>
+                                            <br>
+                                            <input class="form-control" type="text" id="deportBajaDificultad" required
+                                            pattern="([A-ZñÑáéíóúÁÉÍÓÚüÜ])|([A-ZñÑáéíóúÁÉÍÓÚüÜ] [A-ZñÑáéíóúÁÉÍÓÚüÜ])"
+                                            onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                [(ngModel)]="edDeportista.deportBajaDificultad"
+                                                name="deportBajaDificultad" #deportBajaDificultad="ngModel">
+                                            <div [hidden]="deportBajaDificultad.valid || deportBajaDificultad.pristine"
+                                                class="alert alert-danger">
+                                                Especifíque la Dificultad del Deportista, Inicia con
+                                                Mayuscula.
+                                            </div>
+
+                                            <br>
+
+                                            <label
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Tiempo en el Área</FONT>
+                                            </label>
+                                            <br>
+                                            <input class="form-control" type="text" id="deportBajaTiempoArea" required
+                                                pattern="([0-9][A-ZñÑáéíóúÁÉÍÓÚüÜ])|([A-ZñÑáéíóúÁÉÍÓÚüÜ])|([A-ZñÑáéíóúÁÉÍÓÚüÜ] [A-ZñÑáéíóúÁÉÍÓÚüÜ])"
+                                            onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                [(ngModel)]="edDeportista.deportBajaTiempoArea"
+                                                name="deportBajaTiempoArea" #deportBajaTiempoArea="ngModel">
+                                            <div [hidden]="deportBajaTiempoArea.valid || deportBajaTiempoArea.pristine"
+                                                class="alert alert-danger">
+                                                Especifíque el Tiempo en que el Deportista estuvo en el Área, Inicia con
+                                                un
+                                                Digito, Seguido de una Letra Mayuscula
+                                            </div>
+
+                                            <br>
+                                            <label for="deportBajaMotivoBaja"
+                                                style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Motivo de Baja del Deportista</FONT>
+                                            </label>
+                                            <br>
+                                            <select required=true class="form-control"
+                                                [(ngModel)]="edDeportista.deportBajaMotivoBaja"
+                                                id="deportBajaMotivoBaja" name="deportBajaMotivoBaja"
+                                                #deportBajaMotivoBaja="ngModel">
+
+                                                <option disabled>Seleccione..</option>
+                                                <option value="Rendimiento">Rendimiento</option>
+                                                <option value="Fin Categoria">Fin Categoria</option>
+                                                <option value="Problemas Académicos">Problemas Académicos</option>
+                                                <option value="Indisciplina">Indisciplina</option>
+                                                <option value="Voluntad Propia">Voluntad Propia</option>
+
+                                            </select>
+                                            <div [hidden]="deportBajaMotivoBaja.valid || deportBajaMotivoBaja.pristine"
+                                                class="alert alert-danger">
+                                                Seleccione el Motivo de Baja del Deportista
+                                            </div>
+                                            <br>
+
+                                            <label for="deportBajaMedidasTomadas"
+                                                style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Medidas Tomadas</FONT>
+                                            </label>
+                                            <br>
+                                            <textarea required id="deportBajaMedidasTomadas"
+                                            pattern="([A-ZñÑáéíóúÁÉÍÓÚüÜ])|([A-ZñÑáéíóúÁÉÍÓÚüÜ] [A-ZñÑáéíóúÁÉÍÓÚüÜ])"
+                                            onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                type="text" placeholder="Describa la Medida a Tomar"
+                                                class="form-control" rows="10" cols="40"
+                                                [(ngModel)]="edDeportista.deportBajaMedidasTomadas"
+                                                name="deportBajaMedidasTomadas"
+                                                #deportBajaMedidasTomadas="ngModel">Describa la Medida a Tomar</textarea>
+                                            <div [hidden]="deportBajaMedidasTomadas.valid || deportBajaMedidasTomadas.pristine"
+                                                class="alert alert-danger">
+                                                La Descripción de las Medidas Tomadas son Necesarias, Inicia con
+                                                Mayuscula.
+                                            </div>
+
+                                            <br>
+
+                                            <label for="deportBajaRecomendacion"
+                                                style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Recomendaciones</FONT>
+                                            </label>
+                                            <br>
+                                            <textarea required id="deportBajaRecomendacion"
+                                            pattern="([A-ZñÑáéíóúÁÉÍÓÚüÜ])|([A-ZñÑáéíóúÁÉÍÓÚüÜ] [A-ZñÑáéíóúÁÉÍÓÚüÜ])"
+                                            onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                type="text" placeholder="Describa la Recomendación" class="form-control"
+                                                rows="10" cols="40" [(ngModel)]="edDeportista.deportBajaRecomendacion"
+                                                name="deportBajaRecomendacion"
+                                                #deportBajaRecomendacion="ngModel">Describa la Recomendación</textarea>
+                                            <div [hidden]="deportBajaRecomendacion.valid || deportBajaRecomendacion.pristine"
+                                                class="alert alert-danger">
+                                                La Descripción de las Recomendaciones son Necesarias, Inicia con
+                                                Mayuscula.
+                                            </div>
+
+                                            <br>
+
+                                            <br>
+
+                                            <label for="deportBajaObservacion"
+                                                style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Observaciones</FONT>
+                                            </label>
+                                            <br>
+                                            <textarea required id="deportBajaObservacion"
+                                            pattern="([A-ZñÑáéíóúÁÉÍÓÚüÜ])|([A-ZñÑáéíóúÁÉÍÓÚüÜ] [A-ZñÑáéíóúÁÉÍÓÚüÜ])"
+                                            onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                type="text" placeholder="Describa las Observaciones Dadas"
+                                                class="form-control" rows="10" cols="40"
+                                                [(ngModel)]="edDeportista.deportBajaObservacion"
+                                                name="deportBajaObservacion"
+                                                #deportBajaObservacion="ngModel">Describa las Observaciones Dadas</textarea>
+                                            <div [hidden]="deportBajaObservacion.valid || deportBajaObservacion.pristine"
+                                                class="alert alert-danger">
+                                                La Descripción de las Observaciones son Necesarias, Inicia con
+                                                Mayuscula.
+                                            </div>
+
+                                            <br>
+                                            <div class="modal-footer">
+                                            <button type="submit" class="btn btn-labeled btn-primary"
+                                                onclick="return confirm('Esta seguro realizar los cambios?')"
+                                                [disabled]="!deportistabajaForm.form.valid" (click)="guardar()">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-floppy-o"></i>
+                                                </span>
+                                                Guardar</button>
+                                            <button (click)="cancelar()" class="btn btn-labeled btn-danger"
+                                                type="reset"><span class="btn-label"><i
+                                                        class="glyphicon glyphicon-remove"></i>
+                                                </span>Cancelar</button>
+                                            <button (click)="atras(deportista)" class="btn btn-labeled btn-warning"
+                                                placement="top" toolyip="Regresar">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-reply"></i>
+                                                </span>
+                                                Volver</button>
+                                            </div>
+
+
+                                        </div>
+                                    </form>
+
+                                    <br>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </article>
+
+        </div>
+
+
+
+
+    </sa-widgets-grid>
+</div>

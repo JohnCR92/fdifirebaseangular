@@ -1,0 +1,92 @@
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+
+                        <h2>Registro Campos de Entrenamiento</h2> </header> <div class="row" class="cold-md 1"
+                                align="right">
+                                <div align="right"
+                                    class="widget-body no-padding col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                                    <div>
+                                        <br>
+
+                                        <div [hidden]="submitted">
+
+                                            <legend align="center"
+                                                style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                                <b> DATOS DE LOS CAMPOS DE ENTRENAMIENTO</b>
+                                            </legend>
+                                            <form (ngSubmit)="onSubmit()" #entrenamientoForm="ngForm">
+
+                                                <div align="left">
+
+                                                    <br>
+                                                    <label for="campentreNombre"
+                                                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                        <FONT SIZE=3>*Ingrese el Nombre del Campo de Entrenamiento
+                                                        </FONT>
+                                                    </label>
+                                                    <input type="text" id="campentreNombre"
+                                                        class="form-control"
+                                                        [(ngModel)]="centrenamiento.campentreNombre"
+                                                        pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                        required="required" placeholder="Nombre Campo Entrenamiento"
+                                                        onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                        name="campentreNombre" #campentreNombre="ngModel">
+                                                    <div [hidden]="campentreNombre.valid || campentreNombre.pristine"
+                                                        class="alert alert-danger">
+                                                        El Nombre del Campo de Entrenamiento es Necesario, No permite
+                                                        Dígitos.
+                                                    </div>
+                                                    <br>
+
+                                                    <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-labeled btn-primary"
+                                                        [disabled]="!entrenamientoForm.form.valid" (click)="guardar()">
+                                                        <span class="btn-label">
+                                                            <i class="fa fa-floppy-o"></i>
+                                                        </span>
+                                                        Guardar</button>
+                                                    <button (click)="cancelar()" class="btn btn-labeled btn-danger"
+                                                        type="reset"><span class="btn-label"><i
+                                                                class="glyphicon glyphicon-remove"></i>
+                                                        </span>Cancelar</button>
+                                                    <button (click)="atras(disciplina)"
+                                                        class="btn btn-labeled btn-warning" placement="top"
+                                                        toolyip="Regresar">
+                                                        <span class="btn-label">
+                                                            <i class="fa fa-reply"></i>
+                                                        </span>
+                                                        Volver</button>
+
+                                                    </div>
+
+                                                        
+
+
+                                                </div>
+                                            </form>
+
+                                            <br>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                </div>
+        </div>
+
+
+
+        </article>
+
+</div>
+</sa-widgets-grid>
+</div>

@@ -1,0 +1,124 @@
+<div id="content">
+    <sa-widgets-grid>
+
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+
+                        <h2>Datos a Editar del Entrenador con su respectiva Disciplina y Categoría</h2>
+                    </header>
+                    <div class="row" class="cold-md 1" align="right">
+                        <div align="right" class="widget-body no-padding col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                            <br>
+                            <div>
+                                <button (click)="atras(fdiEntrenadorCatDisciplica)" class="btn btn-labeled btn-warning"
+                                    placement="top" toolyip="Regresar">
+                                    <span class="btn-label">
+                                        <i class="fa fa-reply"></i>
+                                    </span>
+                                    Volver</button>
+                            </div>
+                            <div [hidden]="submitted">
+                                <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                    <b> DATOS A EDITAR DEL ENTRENADOR CON SU RESPECTIVA DISCIPLINA Y CATEGORIA</b>
+                                </legend>
+                                <form (ngSubmit)="onSubmit()" #entredisciForm="ngForm">
+                                    <div align="left">
+
+                                        <br>
+                                        <label for="prsCedula"
+                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                            <FONT SIZE=3>* Seleccione Nombres y Cédula del Entrenador : </FONT>
+                                        </label>
+                                        <br>
+                                        <select required=true id="prsCedula" class="form-control"
+                                            [(ngModel)]="fdiEntrenadorCatDisciplica.fdiEntrenador.entreId"
+                                            [compareWith]="compare" name="prsCedula" #prsCedula="ngModel">
+                                            <option disabled value="0" selected="selected">Seleccione....</option>
+                                            <option *ngFor="let fdiEntrenador of fdiEntrenadors"
+                                                [value]="fdiEntrenador.entreId">
+                                                {{fdiEntrenador.fdiPersona.prsApellido}}
+                                                {{fdiEntrenador.fdiPersona.prsNombre}} /
+                                                {{fdiEntrenador.fdiPersona.prsCedula}}
+                                            </option>
+                                        </select>
+                                        <div [hidden]="prsCedula.valid || prsCedula.pristine"
+                                            class="alert alert-danger">
+                                            Seleccione los Nombres y Cédula del Entrenador.
+                                        </div>
+
+
+
+
+                                        <!--<p class="note"><strong >Note: Recuerde {{categoriadisciplina.fdiDisciplina.disciplinaNombre}}</strong></p>-->
+
+                                        <br>
+                                        <label for="disciplinaNombre"
+                                            style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                            <FONT SIZE=3>*Seleccione la Disciplina con su Respectiva Categoría</FONT>
+                                        </label>
+                                        <select type="text" id="disciplinaId" required class="form-control"
+                                            [(ngModel)]="fdiEntrenadorCatDisciplica.fdiCategoriaDisciplina.catdisciId"
+                                            name="disciplinaId" [compareWith]="compare" #disciplinaId="ngModel">
+                                            <option disabled value="0" selected="selected">Seleccione....</option>
+                                            <option *ngFor="let fdiCategoriaDisciplina of fdiCategoriaDisciplinas;"
+                                                [value]="fdiCategoriaDisciplina.catdisciId">
+                                                {{fdiCategoriaDisciplina.fdiDisciplina.disciplinaNombre}} /
+                                                {{fdiCategoriaDisciplina.fdiCategoria.categoriaNombre}}
+                                            </option>
+                                        </select>
+                                        <div [hidden]="disciplinaId.valid || disciplinaId.pristine"
+                                            class="alert alert-danger">
+                                            Seleccione la Disciplina con su Respectiva Categoría
+                                        </div>
+
+
+                                        <br>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-labeled btn-primary"
+                                                onclick="return confirm('Esta seguro realizar los cambios?')"
+                                                [disabled]="!entredisciForm.form.valid" (click)="guardar()">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-floppy-o"></i>
+                                                </span>
+                                                Guardar</button>
+                                            <button (click)="cancelar()" class="btn btn-labeled btn-danger"
+                                                type="reset"><span class="btn-label"><i
+                                                        class="glyphicon glyphicon-remove"></i>
+                                                </span>Cancelar</button>
+                                            <button (click)="atras(fdiEntrenadorCatDisciplica)"
+                                                class="btn btn-labeled btn-warning" placement="top" toolyip="Regresar">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-reply"></i>
+                                                </span>
+                                                Volver</button>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+
+
+
+
+
+                        </div>
+
+                        <br>
+
+                    </div>
+                </div>
+
+
+
+
+            </article>
+
+        </div>
+    </sa-widgets-grid>
+</div>

@@ -1,0 +1,484 @@
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+
+                        <h2>Registro de la Persona</h2>
+                    </header>
+                    <div class="row" class="cold-md 1" align="right">
+                        <div align="right" class="widget-body no-padding col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                            <div>
+                                <br>
+                                <button (click)="atras(persona)" class="btn btn-labeled btn-warning" placement="top"
+                                    toolyip="Regresar">
+                                    <span class="btn-label">
+                                        <i class="fa fa-reply"></i>
+                                    </span>
+                                    Volver</button>
+
+
+                                <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                    <b> REGISTRO DE LA PERSONA </b>
+                                </legend>
+
+
+                                <br>
+                                <div align="left">
+
+                                    <label for="cedula"
+                                        style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Tipo de Documento Personal</FONT>
+                                    </label>
+
+
+                                    <select #data (change)="cambio(data.value)" class="form-control"
+                                        required="required">
+                                        <option value="0" selected disabled>Seleccione...</option>
+                                        <option value="1">Cédula</option>
+                                        <option value="2">Pasaporte</option>
+                                        <option value="3">Sin Identificación</option>
+
+                                        <!--    <option  *ngFor="let topic of topics">{{topic}}</option>  -->
+
+                                    </select>
+                                </div>
+
+                                <br>
+
+                                <div align="left">
+
+                                    <div class="form-row" *ngIf="camb">
+                                        <label for="cedula"
+                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                            <FONT SIZE=3>* Cédula </FONT>
+                                        </label>
+
+                                        <input type="text" required=true class="form-control" name="sriCedula"
+                                            id="sriCedula" pattern="[0-9]{0,10}" placeholder="Ingrese la Cedula"
+                                            [(ngModel)]="sripersona.sriCedula"
+                                            (change)="validadorDeCedula(sripersona.sriCedula)" maxlength="10"
+                                            #sriCedula="ngModel">
+                                        <div [hidden]="sriCedula.valid || sriCedula.pristine"
+                                            class="alert alert-danger">
+                                            Ingrese un Número de Cédula
+                                        </div>
+                                        <div>
+                                            <label for="cedula" *ngIf="!verificador"
+                                                style="color: brown ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Atención Cédula Incorrecta</FONT>
+                                            </label>
+
+                                        </div>
+
+                                        <div *ngIf="camb && verificador">
+                                            <button style="margin-top: 23px" class="btn btn-primary btn xs"
+                                                (click)="getPersonanuevo(sripersona.sriCedula)">
+                                                <i class="fa fa-search"></i>
+                                                Buscar/Consultar</button>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-row" *ngIf="camb2">
+                                        <label for="pasaporte"
+                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                            <FONT SIZE=3>* Pasaporte</FONT>
+                                        </label>
+
+                                        <input type="text" required=true class="form-control" name="sriCedula"
+                                            id="sriCedula" pattern="[0-9]{0,15}" placeholder="Ingrese el Pasaporte"
+                                            [(ngModel)]="sripersona.sriCedula" maxlength="15" #sriCedula="ngModel">
+                                        <div [hidden]="sriCedula.valid || sriCedula.pristine"
+                                            class="alert alert-danger">
+                                            Ingrese un Número de Pasaporte
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                    <div class="form-row" *ngIf="camb3">
+                                        <label for="pasaporte"
+                                            style="color: rgb(126, 123, 123) ; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                            <FONT SIZE=3>* Código Deportista</FONT>
+                                        </label>
+
+                                        <input type="text" required=true class="form-control" name="sriCedula"
+                                            id="sriCedula" pattern="FDI|FDI[0-9]{0,15}"
+                                            onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                            placeholder="Ingrese un Codigo que Identifique al Deportista, Ejm: (FDI_00XX)"
+                                            [(ngModel)]="sripersona.sriCedula" maxlength="15" #sriCedula="ngModel">
+                                        <div [hidden]="sriCedula.valid || sriCedula.pristine"
+                                            class="alert alert-danger">
+                                            Ingrese un Código que Identifique al Deportista.
+                                        </div>
+
+
+
+
+                                    </div>
+                                </div>
+
+                                <div [hidden]="submitted">
+
+                                    <form (ngSubmit)="onSubmit()" #personaForm="ngForm">
+                                        <div align="left">
+                                            <br>
+                                            <label for="nombre"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Nombres</FONT>
+                                            </label>
+                                            <input type="text" class="form-control" name="sriNombre" id="sriNombre"
+                                                required
+                                                pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                placeholder="Nombres" [(ngModel)]="sripersona.sriNombre"
+                                                #sriNombre="ngModel">
+                                            <div [hidden]="sriNombre.valid || sriNombre.pristine"
+                                                class="alert alert-danger">
+                                                Los Nombres son Necesarios, No permite Dígitos.
+                                            </div>
+                                            <br>
+                                            <label for="apellido"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Apellidos</FONT>
+                                            </label>
+                                            <input type="text" class="form-control" name="sriApellido" id="sriApellido"
+                                                required
+                                                pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                placeholder="Apellidos" [(ngModel)]="sripersona.sriApellido"
+                                                #sriApellido="ngModel">
+                                            <div [hidden]="sriApellido.valid || sriApellido.pristine"
+                                                class="alert alert-danger">
+                                                Los Apellidos son Necesarios, No permite Dígitos.
+                                            </div>
+                                            <br>
+                                            <label for="fechanac"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Fecha de Nacimiento</FONT>
+                                            </label>
+                                            <input required min="01/01/1988" max="31/12/2019" type="date"
+                                                class="form-control" name="sriFechaNaciemineto" id="sriFechaNaciemineto"
+                                                placeholder="Fecha de Nacimiento"
+                                                [(ngModel)]="sripersona.sriFechaNaciemineto"
+                                                #sriFechaNaciemineto="ngModel">
+                                            <div [hidden]="sriFechaNaciemineto.valid || sriFechaNaciemineto.pristine"
+                                                class="alert alert-danger">
+                                                Es necesaria la Fecha de Nacimiento
+                                            </div>
+                                            <br>
+                                            <div>
+                                                <label for="sexo"
+                                                    style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                    <FONT SIZE=3>*Sexo</FONT>
+                                                </label>
+                                                <br>
+                                                <label style="align-items: center"
+                                                    class="radio radio-inline no-margin  ">
+                                                    <input type="radio" name="sexo" value="M" class="radiobox style-2"
+                                                        [(ngModel)]="sripersona.sriSexo">
+                                                    <span>Masculino</span>
+
+                                                </label>
+
+                                                <label style="align-items: center"
+                                                    class="radio radio-inline no-padding  ">
+                                                    <input type="radio" name="sexo" value="F" class="radiobox style-3 "
+                                                        [(ngModel)]="sripersona.sriSexo">
+                                                    <span>Femenino</span>
+
+                                                </label>
+                                            </div>
+
+                                            <br>
+                                            <label for="etnia"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Etnia</FONT>
+                                            </label>
+                                            <br>
+                                            <select class="form-control" id="sriEtnia" name="etnia"
+                                                [(ngModel)]="sripersona.sriEtnia" required #sriEtnia="ngModel">
+                                                <option disabled value="0" selected="selected">Seleccione....</option>
+                                                <option value="Mestizo">MESTIZO</option>
+                                                <option value="Indigena">INDIGENA</option>
+                                                <option value="Blanco">BLANCO</option>
+                                                <option value="Afroamericano">AFROAMERICANO</option>
+                                                <option value="Otro">OTRO</option>
+
+                                            </select>
+                                            <div [hidden]="sriEtnia.valid || sriEtnia.pristine"
+                                                class="alert alert-danger">
+                                                La Etnia de la Persona es Necesaria
+                                            </div>
+                                            <br>
+
+                                            <label for="ocup"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Ocupación</FONT>
+                                            </label>
+                                            <input type="text" class="form-control" name="sriOcupacion"
+                                                id="sriOcupacion" placeholder="Ocupacion"
+                                                [(ngModel)]="sripersona.sriOcupacion" required
+                                                pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                #sriOcupacion="ngModel">
+                                            <div [hidden]="sriOcupacion.valid || sriOcupacion.pristine"
+                                                class="alert alert-danger">
+                                                La Ocupación de la Persona es Necesaria
+                                            </div>
+
+                                            <br>
+                                            <label for="estadocivil"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Estado Civil</FONT>
+                                            </label>
+                                            <br>
+                                            <select class="form-control" name="sriEstadoCivil" id="sriEstadoCivil"
+                                                [(ngModel)]="sripersona.sriEstadoCivil" required=true
+                                                #sriEstadoCivil="ngModel">
+                                                <option [value]=null>Seleccione..</option>
+                                                <option value="S">Soltero</option>
+                                                <option value="C">Casado</option>
+                                                <option value="D">Divorciado</option>
+                                                <option value="V">Viudo</option>
+                                                <option value="U">Union libre</option>
+                                            </select>
+                                            <div [hidden]="sriEstadoCivil.valid || sriEstadoCivil.pristine"
+                                                class="alert alert-danger">
+                                                No se a Seleccionado el Estado Civil de la Persona
+                                            </div>
+                                            <br>
+                                            <label for="ts"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Tipo de Sangre</FONT>
+                                            </label>
+                                            <br>
+                                            <select class="form-control" id="sriGrupoSanguineo" name="ts"
+                                                [(ngModel)]="sripersona.sriGrupoSanguineo" required=true
+                                                #sriGrupoSanguineo="ngModel">
+                                                <option [value]=null>Seleccione....</option>
+                                                <option value="O Rh+">O Rh+</option>
+                                                <option value="O Rh-">O Rh-</option>
+                                                <option value="B Rh-">B Rh-</option>
+                                                <option value="B Rh+">B Rh+</option>
+                                                <option value="A Rh-">A Rh-</option>
+                                                <option value="A Rh+">A Rh+</option>
+                                                <option value="AB Rh-">AB Rh-</option>
+                                                <option value="AB Rh+">AB Rh+</option>
+
+                                            </select>
+                                            <div [hidden]="sriGrupoSanguineo.valid || sriGrupoSanguineo.pristine"
+                                                class="alert alert-danger">
+                                                No se a Seleccionado el tipo de Sangre de la Persona
+                                            </div>
+                                            <br>
+                                            <label for="tipodis"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*¿Posee algún tipo de Discapacidad?</FONT>
+                                            </label>
+                                            <select class="form-control" name="sriTipoDiscapacidad"
+                                                id="sriTipoDiscapacidad" [(ngModel)]="sripersona.sriTipoDiscapacidad"
+                                                required=true #sriTipoDiscapacidad="ngModel">
+                                                <option [value]=null>Seleccione....</option>
+                                                <option value="Visual">Visual</option>
+                                                <option value="Física">Física</option>
+                                                <option value="Auditiva">Auditiva</option>
+                                                <option value="Intelectual">Intelectual</option>
+                                                <option value="No">Ninguna</option>
+
+                                            </select>
+                                            <div [hidden]="sriTipoDiscapacidad.valid || sriTipoDiscapacidad.pristine"
+                                                class="alert alert-danger">
+                                                No se a Seleccionado si tiene algún tipo de Discapacidad o no la Persona
+                                            </div>
+                                            <br>
+                                            <label for="telefono"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Teléfono/Celular</FONT>
+                                            </label>
+                                            <input type="tel" class="form-control" name="sriTelefono" id="sriTelefono"
+                                                placeholder="Teléfono/Celular" [(ngModel)]="sripersona.sriTelefono"
+                                                required pattern="([09]{2}[0-9]{8})" maxlength="10"
+                                                #sriTelefono="ngModel">
+                                            <div [hidden]="sriTelefono.valid || sriTelefono.pristine"
+                                                class="alert alert-danger">
+                                                El Teléfono de la Persona es Necesario
+                                            </div>
+
+                                            <br>
+                                            <label for="correo"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Correo Electrónico</FONT>
+                                            </label>
+                                            <input type="email" class="form-control" name="sriCorreo" id="sriCorreo"
+                                                placeholder="Email" [(ngModel)]="sripersona.sriCorreo" required
+                                                pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                                                #sriCorreo="ngModel">
+                                            <div [hidden]="sriCorreo.valid || sriCorreo.pristine"
+                                                class="alert alert-danger">
+                                                El Email de la Persona es Necesario
+                                            </div>
+                                            <br>
+                                            <legend align="center"
+                                                style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                                <b>LUGAR DE NACIMIENTO</b>
+                                            </legend>
+                                            <br>
+                                            <label for="naci"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Nacionalidad</FONT>
+                                            </label>
+                                            <input type="text" class="form-control" name="sriNacionalidad"
+                                                id="sriNacionalidad" disabled placeholder="Nacionalidad"
+                                                [(ngModel)]="sripersona.sriNacionalidad" required
+                                                pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                #sriNacionalidad="ngModel">
+                                            <div [hidden]="sriNacionalidad.valid || sriNacionalidad.pristine"
+                                                class="alert alert-danger">
+                                                La Nacionalidad de la Persona es Necesaria
+                                            </div>
+                                            <br>
+                                            <label for="provin"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Provincia/Canton/Parroquia
+                                                </FONT>
+                                            </label>
+                                            <input type="text" class="form-control" name="sriProvincia"
+                                                id="sriProvincia" placeholder="Provincia/Canton/Parroquia"
+                                                [(ngModel)]="sripersona.sriProvincia+'/' + sripersona.sriCanton+'/' + sripersona.sriParroquia"
+                                                required
+                                                pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                disabled #sriProvincia="ngModel">
+                                            <div [hidden]="sriProvincia.valid || sriProvincia.pristine"
+                                                class="alert alert-danger">
+                                                La Provincia, Cantón y Parroquía de la Persona son Necesarias
+                                            </div>
+                                            <br>
+                                            <legend align="center"
+                                                style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                                <b> RECIDENCIA ACTUAL</b>
+                                            </legend>
+                                            <br>
+                                            <br>
+                                            <label for="recid"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Dirección Recidencia</FONT>
+                                            </label>
+                                            <input type="text" class="form-control" name="sriDirRecidencia"
+                                                id="sriDirRecidencia"
+                                                placeholder="Direccion de Recidencia de la Persona"
+                                                [(ngModel)]="sripersona.sriDirRecidencia" required
+                                                pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                #sriDirRecidencia="ngModel">
+                                            <div [hidden]="sriDirRecidencia.valid || sriDirRecidencia.pristine"
+                                                class="alert alert-danger">
+                                                La Residencia de la Persona es Necesaria
+                                            </div>
+                                            <br>
+                                            <legend align="center"
+                                                style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                                <b>DATOS DE LOS PADRES</b>
+                                            </legend>
+
+                                            <br>
+                                            <label for="np"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Nombres del Padre</FONT>
+                                            </label>
+                                            <input type="text" class="form-control" name="sriNompadre" id="sriNompadre"
+                                                required
+                                                pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                placeholder="Nombres del Padre" [(ngModel)]="sripersona.sriNompadre"
+                                                #sriNompadre="ngModel">
+                                            <div [hidden]="sriNompadre.valid || sriNompadre.pristine"
+                                                class="alert alert-danger">
+                                                Los Nombres del Padre de la Persona son Necesarios
+                                            </div>
+                                            <br>
+                                            <label for="nm"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Nombres de la Madre</FONT>
+                                            </label>
+                                            <input type="text" class="form-control" name="sriNommadre" id="sriNommadre"
+                                                required
+                                                pattern="([A-ZñÑáÁéÉíÍóÓúÚüÜ]{2})|([A-ZñÑáÁéÉíÍóÓúÚüÜ] [A-ZñÑáÁéÉíÍóÓúÚüÜ])"
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                placeholder="Nombres de la Madre" [(ngModel)]="sripersona.sriNommadre"
+                                                #sriNommadre="ngModel">
+                                            <div [hidden]="sriNommadre.valid || sriNommadre.pristine"
+                                                class="alert alert-danger">
+                                                Los Nombres de la Madre de la Persona son Necesarios
+                                            </div>
+                                            <br>
+                                            <label for="tp"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>* Teléfono/Celular del Representante</FONT>
+                                            </label>
+                                            <input type="tel" class="form-control" name="sriTelpadres" id="sriTelpadres"
+                                                placeholder="Telefono del Padre o de la Madre"
+                                                [(ngModel)]="sripersona.sriTelpadres" required
+                                                pattern="([09]{2}[0-9]{8})" maxlength="10" #sriTelpadres="ngModel">
+                                            <div [hidden]="sriTelpadres.valid || sriTelpadres.pristine"
+                                                class="alert alert-danger">
+                                                El Teléfono del Representante de la Persona es Necesario
+                                            </div>
+
+                                            <br>
+                                            <div class="modal-footer">
+                                            <button onclick="return confirm('Esta seguro realizar los cambios?')"
+                                                type="submit" class="btn btn-labeled btn-primary"
+                                                [disabled]="!personaForm.form.valid" (click)="guardar()">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-floppy-o"></i>
+                                                </span>
+                                                Guardar</button>
+                                            <button (click)="cancelar()" class="btn btn-labeled btn-danger"
+                                                type="reset">
+                                                <span class="btn-label">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </span>Cancelar</button>
+                                            <button (click)="atras(persona)" class="btn btn-labeled btn-warning"
+                                                placement="top" toolyip="Regresar">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-reply"></i>
+                                                </span>
+                                                Volver</button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+
+                                    <br>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </article>
+
+        </div>
+
+
+
+
+    </sa-widgets-grid>
+</div>

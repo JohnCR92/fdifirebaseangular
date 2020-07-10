@@ -1,0 +1,172 @@
+<div id="content">
+
+
+    <sa-widgets-grid>
+
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+                </div>
+                <fieldset>
+                    <div sa-widget [editbutton]="false" color="blueDark">
+                        <header>
+                            <span class="widget-icon">
+                                <i class="fa fa-table"></i>
+                            </span>
+                            <h2>Lista de Deportistas Federados y No Federados</h2>
+                        </header>
+                        <div *ngIf="this.temp_var">
+                            <div class="widget-body no-padding ">
+                                <div class="table-responsive">
+
+                                    <sa-datatable paginationLength="true"
+                                        tableClass=" table  table-striped table-bordered table-hover">
+
+                                        <thead class="f" style="text-align: center">
+                                            <tr>
+                                                <!--<td>ID</td>-->
+                                                <!--<td>ID DEPORTISTA</td>-->
+                                                <td>Cédula</td>
+                                                <td>Nombres</td>
+                                                <td>Apellidos</td>
+                                                <td>Fecha Nacimiento</td>
+                                                <td>Edad</td>
+                                                <td>Sexo</td>
+                                                <!--<td>TELEFONO</td>-->
+                                                <td>Foto</td>
+                                                <td>Foto Cedula</td>
+                                                <td>Nombre Disciplina</td>
+                                                <td>Nombre de la Categoría</td>
+                                                <td>Estado</td>
+                                                <td>Tipo Deportista</td>
+                                                <td>Editar</td>
+                                                <td>Ficha</td>
+                                                <td>Eliminar</td>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr *ngFor="let edDeportista of edDeportistas" align="center">
+                                                <!--<td>
+                                                    {{persona.prsId}}
+                                                </td>-->
+                                                <!--<td>
+                                                    {{deportista.deporId}}
+                                                </td>
+                                                <td>
+                                                    {{deportista.fdiPersona.prsId}}
+                                                </td>-->
+                                                <td>
+                                                    {{edDeportista.fdiPersona.prsCedula}}
+                                                </td>
+                                                <td>
+                                                    {{edDeportista.fdiPersona.prsNombre}}
+                                                </td>
+
+                                                <td>
+                                                    {{edDeportista.fdiPersona.prsApellido}}
+                                                </td>
+                                                <td>
+                                                    {{edDeportista.fdiPersona.prsFechaNaciemineto}}
+                                                </td>
+                                                <td [style.background-color]="'#EBEEF1'">
+                                                    {{CalcularEdad(edDeportista.fdiPersona.prsFechaNaciemineto)}}
+                                                </td>
+                                                <td>
+                                                    {{edDeportista.fdiPersona.prsSexo}}
+                                                </td>
+                                                <!--<td>
+                                                            {{deportista.fdiPersona.prsTelefono}}
+                                                        </td>-->
+                                                <td>
+                                                    <img [src]="getUrlDoc1(edDeportista.deportFoto)" alt="Smiley face"
+                                                        height="42" width="42">
+                                                    <!--<a [href]="getUrlDoc1(deportista.deportFoto)" target="_blank" class="btn btn-primary">
+                                                        <i class="fa fa-file-text-o"></i>
+                                                    </a>-->
+                                                </td>
+                                                <td>
+                                                    <img [src]="getUrlDoc2(edDeportista.deportFotocedula)"
+                                                        alt="Smiley face" height="42" width="42">
+                                                </td>
+                                                <td>
+                                                    {{edDeportista.fdiCategoriaDisciplina.fdiDisciplina.disciplinaNombre}}
+                                                </td>
+
+                                                <td>
+                                                    {{edDeportista.fdiCategoriaDisciplina.fdiCategoria.categoriaNombre}}
+                                                </td>
+
+                                                <td>
+                                                    <span class="label"
+                                                        [style.background-color]="edDeportista.deportEstado == true ? 'green' : 'red'">
+                                                        {{edDeportista.deportEstado}}</span>
+
+
+                                                </td>
+                                                <td>
+                                                    <span class="badge"
+                                                        [style.background-color]="edDeportista.deportTipodeportista != F ? 'orange' : 'blue'">
+                                                        {{edDeportista.deportTipodeportista}}</span>
+                                                </td>
+
+                                                <!--<td>
+                                                        <span class="label label-danger" class="label label-success" [style.background-color]="persona.prsEstado == false ? 'danger' : 'success'">
+                                                            {{persona.prsEstado}}</span>
+                                                    </td>-->
+
+                                                <td>
+                                                    <!--<button (click)="editar(autor)">Editar</button>-->
+                                                    <a class="btn btn-primary btn-sm"
+                                                        routerLink="formeditfnf/{{edDeportista.deporId}}">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <!--<button (click)="editar(autor)">Editar</button>-->
+                                                    <a class="btn btn-info btn-sm"
+                                                        routerLink="formverfnf/{{edDeportista.deporId}}">
+                                                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+
+                                                    </a>
+                                                </td>
+                                                <td>
+
+                                                    <a class="btn btn-danger btn-sm" (click)="eliminar(edDeportista)">
+                                                        <i class="fa fa-trash-o"></i>
+
+                                                    </a>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+
+
+                                    </sa-datatable>
+
+
+
+                                    <br>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-labeled btn-info btn-sm" routerLink="reportes"
+                                            placement="top" toolyip="Reportes">
+                                            <span class="btn-label">
+                                                <i class="fa fa-list-alt" aria-hidden="true"></i>
+                                            </span>
+                                            Reporte General </button>
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+            </article>
+
+        </div>
+
+    </sa-widgets-grid>
+</div>

@@ -1,0 +1,106 @@
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+
+                        <h2>Edición de las Disciplinas Deportivas</h2>
+                    </header>
+                    <div class="row" class="cold-md 1" align="right">
+                        <div align="right" class="widget-body no-padding col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                            <div>
+                                <br>
+
+
+                                <div [hidden]="submitted">
+
+                                    <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                        <b> DATOS A EDITAR DE LAS DISCIPLINAS DEPORTIVAS</b>
+                                    </legend>
+                                    <form (ngSubmit)="onSubmit()" #disciplinaeditForm="ngForm">
+                                        <div align="left">
+
+                                            <br>
+                                            <label for="campentreNombre"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Seleccione el Campo de Entrenamiento</FONT>
+                                            </label>
+                                            <select type="text" id="edCamposEntrenamiento" required=true
+                                                class="form-control"
+                                                [(ngModel)]="fdiDisciplina.edCamposEntrenamiento.campentreId"
+                                                name="edCamposEntrenamiento" [compareWith]="compare"
+                                                #campentreId="ngModel">
+                                                <option disabled value="0" selected="selected">Seleccione....</option>
+                                                <option *ngFor="let edCamposEntrenamiento of edCamposEntrenamientos;"
+                                                    [value]="edCamposEntrenamiento.campentreId">
+                                                    {{edCamposEntrenamiento.campentreNombre}}</option>
+                                            </select>
+                                            <div [hidden]="campentreId.valid || campentreId.pristine"
+                                                class="alert alert-danger">
+                                                Debe Seleccionar un Nombre del Campo de Entrenamiento
+                                            </div>
+                                            <br>
+
+                                            <label for="disciplinaNombre"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Ingrese el Nombre de la
+                                                    Disciplina Deportiva</FONT>
+                                            </label>
+                                            <input type="text" required id="disciplinaNombre"
+                                                pattern="([A-ZñÑáéíóúÁÉÍÓÚüÜ]{2,})|([A-ZñÑáéíóúÁÉÍÓÚüÜ]{2,} [A-ZñÑáéíóúÁÉÍÓÚüÜ]{2,})"
+                                                onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                                class="form-control" placeholder="Nombre Disciplina" type="text"
+                                                name="disciplinaNombre" [(ngModel)]="fdiDisciplina.disciplinaNombre"
+                                                #disciplinaNombre="ngModel">
+                                            <div [hidden]="disciplinaNombre.valid || disciplinaNombre.pristine"
+                                                class="alert alert-danger">
+                                                El Nombre de la Disciplina es Necesario, No permite Dígitos.
+                                            </div>
+
+                                            <br>
+                                            <div class="modal-footer">
+                                            <button type="submit" class="btn btn-labeled btn-primary"
+                                                [disabled]="!disciplinaeditForm.form.valid" (click)="guardar()">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-floppy-o"></i>
+                                                </span>
+                                                Guardar</button>
+                                            <button (click)="cancelar()" class="btn btn-labeled btn-danger"
+                                                type="reset">
+                                                <span class="btn-label">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </span>Cancelar</button>
+                                            <button (click)="atras(disciplina)" class="btn btn-labeled btn-warning"
+                                                placement="top" toolyip="Regresar">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-reply"></i>
+                                                </span>
+                                                Volver</button>
+                                            </div>
+
+
+                                        </div>
+                                    </form>
+
+                                    <br>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </article>
+
+        </div>
+    </sa-widgets-grid>
+</div>

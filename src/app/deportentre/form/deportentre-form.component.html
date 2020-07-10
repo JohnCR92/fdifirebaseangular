@@ -1,0 +1,129 @@
+<div id="content">
+    <sa-widgets-grid>
+
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+
+                        <h2>Registro de los Entrenadores con sus respectivos Deportistas</h2>
+                    </header>
+                    <div class="row" class="cold-md 1" align="right">
+                        <div align="right" class="widget-body no-padding col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                            <br>
+                            <div>
+                                <button (click)="atras(edDeportistaEntrenador)" class="btn btn-labeled btn-warning"
+                                    placement="top" toolyip="Regresar">
+                                    <span class="btn-label">
+                                        <i class="fa fa-reply"></i>
+                                    </span>
+                                    Volver</button>
+                                <div [hidden]="submitted">
+                                    <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                        <b> REGISTRO DE LOS ENTRENADORES CON SUS RESPECTIVOS DEPORTISTAS</b>
+                                    </legend>
+                                    <form (ngSubmit)="onSubmit()" #entredeportForm="ngForm">
+                                        <div align="left">
+
+                                            <br>
+                                            <label for="disciplinaNombre"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Seleccione el Disciplina con su respectivo Entrenador
+                                                </FONT>
+                                            </label>
+                                            <select required=true class="form-control" id="entreId"
+                                                [(ngModel)]="edDeportistaEntrenador.fdiEntrenador.entreId"
+                                                name="entreId" #fdiEntrenador="ngModel" [compareWith]="compare">
+                                                <option disabled>Seleccione....</option>
+                                                <option *ngFor="let fdiEntrenador of fdiEntrenadors;"
+                                                    [ngValue]="fdiEntrenador.entreId">
+                                                    {{fdiEntrenador.fdiPersona.prsApellido}}
+                                                    {{fdiEntrenador.fdiPersona.prsNombre}} /
+                                                    {{fdiEntrenador.fdiPersona.prsCedula}}</option>
+                                            </select>
+                                            <div [hidden]="fdiEntrenador.valid || fdiEntrenador.pristine"
+                                                class="alert alert-danger">
+                                                Seleccione un Entrenador
+                                            </div>
+
+
+
+                                            <!--<p class="note"><strong >Note: Recuerde {{categoriadisciplina.fdiDisciplina.disciplinaNombre}}</strong></p>-->
+
+                                            <br>
+                                            <label for="categoriaNombre"
+                                                style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                                <FONT SIZE=3>*Seleccione el Deportista con su Respectiva Disciplina
+                                                </FONT>
+                                            </label>
+                                            <select required=true class="form-control" id="deporId"
+                                                [(ngModel)]="edDeportistaEntrenador.edDeportista.deporId" name="deporId"
+                                                #edDeportista="ngModel" [compareWith]="compare">
+                                                <option disabled value="0" selected="selected">Seleccione....</option>
+                                                <option *ngFor="let edDeportista of edDeportistas;"
+                                                    [ngValue]="edDeportista.deporId">
+                                                    {{edDeportista.fdiPersona.prsApellido}}
+                                                    {{edDeportista.fdiPersona.prsNombre}} /
+                                                    {{edDeportista.fdiPersona.prsCedula}} /
+                                                    {{edDeportista.fdiCategoriaDisciplina.fdiDisciplina.disciplinaNombre}}
+                                                    /
+                                                    {{edDeportista.fdiCategoriaDisciplina.fdiCategoria.categoriaNombre}}
+                                                </option>
+                                            </select>
+                                            <div [hidden]="edDeportista.valid || edDeportista.pristine"
+                                                class="alert alert-danger">
+                                                Seleccione un Deportista
+                                            </div>
+
+
+                                            <br>
+
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-labeled btn-primary"
+                                                    onclick="return confirm('Esta seguro realizar los cambios?')"
+                                                    [disabled]="!entredeportForm.form.valid" (click)="guardar()">
+                                                    <span class="btn-label">
+                                                        <i class="fa fa-floppy-o"></i>
+                                                    </span>
+                                                    Guardar</button>
+                                                <button (click)="cancelar()" class="btn btn-labeled btn-danger"
+                                                    type="reset"><span class="btn-label"><i
+                                                            class="glyphicon glyphicon-remove"></i>
+                                                    </span>Cancelar</button>
+                                                <button (click)="atras(edDeportistaEntrenador)"
+                                                    class="btn btn-labeled btn-warning" placement="top"
+                                                    toolyip="Regresar">
+                                                    <span class="btn-label">
+                                                        <i class="fa fa-reply"></i>
+                                                    </span>
+                                                    Volver</button>
+                                            </div>
+
+
+
+
+
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <br>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </article>
+
+        </div>
+    </sa-widgets-grid>
+</div>

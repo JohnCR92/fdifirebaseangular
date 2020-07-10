@@ -1,0 +1,150 @@
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" [fullscreenbutton]="true" color="white">
+
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+
+                        <h2>Registro de las Competencias</h2>
+                    </header>
+                    <div class="row" class="cold-md 1" align="right">
+                        <div align="right" class="widget-body no-padding col-sm-12 col-ms-12 col-md-12 colg-lg-12">
+                            <div>
+                                <br>
+                                <button (click)="atras(competencia)" class="btn btn-labeled btn-warning"
+                                            placement="top" toolyip="Regresar">
+                                            <span class="btn-label">
+                                                <i class="fa fa-reply"></i>
+                                            </span>
+                                            Volver</button>
+                                            <br>
+                                            <div [hidden]="submitted">
+                                <legend align="center" style="font-family: 'Times New Roman';color:rgb(0, 92, 128)">
+                                    <b> DATOS DE LAS COMPETENCIAS</b>
+                                </legend>
+                                <form (ngSubmit)="onSubmit()" #competenciaForm="ngForm">
+                                <div align="left">
+
+                                    <br>
+                                    <label for="nombreCompetencia"
+                                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Nombre de la Competencia</FONT>
+                                    </label>
+                                    <input placeholder="Nombre de la Competencia" align="center" type="text"
+                                        id="nombreCompetencia"  class="form-control"
+                                         [(ngModel)]="competencia.nombreCompetencia"
+                                        name="nombreCompetencia" #nombreCompetencia="ngModel" required pattern="([A-ZñÑáéíóúÁÉÍÓÚüÜ])|([A-ZñÑáéíóúÁÉÍÓÚüÜ] [A-ZñÑáéíóúÁÉÍÓÚüÜ])"
+                                        onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                            >
+                                    <div [hidden]="nombreCompetencia.valid || nombreCompetencia.pristine"
+                                        class="alert alert-danger">
+                                        El Nombre de la Competencia es Necesaria
+                                    </div>
+                                    <br>
+                                    <label for="lugar"
+                                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Descripción del Lugar o Dirección</FONT>
+                                    </label>
+                                    <textarea placeholder="Descripción del Lugar o Dirección de la Competencia" id="lugar"
+                                        required pattern="([A-ZñÑáéíóúÁÉÍÓÚüÜ])|([A-ZñÑáéíóúÁÉÍÓÚüÜ] [A-ZñÑáéíóúÁÉÍÓÚüÜ])"
+                                        onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()"
+                                             class="form-control" type="text"
+                                         [(ngModel)]="competencia.lugar"
+                                        name="lugar" #lugar="ngModel" rows="10" cols="40"></textarea>
+                                    <div [hidden]="lugar.valid || lugar.pristine" class="alert alert-danger">
+                                        El Lugar de la Competencia es Necesaria
+                                    </div>
+
+                                    <br>
+
+                                    <label for="fechaDesde"
+                                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Fecha Inicio de la Competencia</FONT>
+                                    </label>
+                                    <input align="center" id="fechaDesde" required=true class="form-control" type="date"
+                                        value="fechaDesde" [(ngModel)]="competencia.fechaDesde" name="fechaDesde"
+                                        #fechaDesde="ngModel">
+                                    <div [hidden]="fechaDesde.valid || fechaDesde.pristine" class="alert alert-danger">
+                                        La Fecha Inicio de la Competencia es Necesaria
+                                    </div>
+
+                                    <br>
+
+                                    <label for="fechaHasta"
+                                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Fecha Fin de la Competencia</FONT>
+                                    </label>
+                                    <input align="center" id="fechaDesde" required=true class="form-control" type="date"
+                                        value="fechaHasta" name="fechaHasta" [(ngModel)]="competencia.fechaHasta"
+                                        #fechaHasta="ngModel">
+                                    <div [hidden]="fechaHasta.valid || fechaHasta.pristine" class="alert alert-danger">
+                                        la Fecha fin de la Competencia es Necesaria
+                                    </div>
+
+                                    <br>
+
+                                    <label for="sexo"
+                                        style="color: rgb(126, 123, 123); font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                                        <FONT SIZE=3>* Competencia Masculina o Femenina</FONT>
+                                    </label>
+                                    <select class="form-control" name="sexo" type="text" id="sexo" required=true
+                                        [(ngModel)]="competencia.sexo" #sexo="ngModel">
+                                        <option disabled>Seleccione...</option>
+                                        <option value="M">MASCULINA</option>
+                                        <option value="F">FEMENINA</option>
+                                    </select>
+                                    <div [hidden]="sexo.valid || sexo.pristine" class="alert alert-danger">
+                                        Seleccione el Tipo de Competencia Masculina o Femenina
+                                    </div>
+                                    <br>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-labeled btn-primary"
+                                            onclick="return confirm('Esta seguro realizar los cambios?')"
+                                            [disabled]="!competenciaForm.form.valid" (click)="guardar()">
+                                            <span class="btn-label">
+                                                <i class="fa fa-floppy-o"></i>
+                                            </span>
+                                            Guardar</button>
+                                        <button (click)="cancelar()" class="btn btn-labeled btn-danger"
+                                            type="reset"><span class="btn-label"><i
+                                                    class="glyphicon glyphicon-remove"></i>
+                                            </span>Cancelar</button>
+                                        <button (click)="atras(competencia)" class="btn btn-labeled btn-warning"
+                                            placement="top" toolyip="Regresar">
+                                            <span class="btn-label">
+                                                <i class="fa fa-reply"></i>
+                                            </span>
+                                            Volver</button>
+                                        </div>
+
+
+
+                                </div>
+                                </form>
+
+
+                                <br>
+
+                            </div>
+                        </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </article>
+
+        </div>
+
+
+
+
+    </sa-widgets-grid>
+</div>
